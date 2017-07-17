@@ -1,0 +1,18 @@
+ext {
+    app = [
+            buildTools: "26.0.0",
+            apiUrl: '"https://rst-it.com/api/v1/"',
+            baseId: "com.rstit.connector"
+    ]
+
+    sdk = [
+            min: 19,
+            target: 26,
+            compile: 26
+    ]
+
+    lang = [
+            source: JavaVersion.VERSION_1_8,
+            target: JavaVersion.VERSION_1_8
+    ]
+}
