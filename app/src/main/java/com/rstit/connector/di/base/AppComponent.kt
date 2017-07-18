@@ -14,7 +14,7 @@ import javax.inject.Singleton
  * @since 2017-07-17
  */
 @Singleton
-@Component(modules = arrayOf(AppModule::class, ValidationModule::class))
+@Component(modules = arrayOf(AppModule::class, ValidationModule::class, AppSettingsModule::class, NetModule::class))
 interface AppComponent {
     fun inject(app: Application)
 

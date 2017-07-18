@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.google.common.base.Strings"/>
+
         <variable
             name="model"
             type="com.rstit.connector.ui.login.CustomLoginViewModel"/>
@@ -12,6 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:padding="@dimen/padding_large">
@@ -19,8 +22,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:error="@{model.mLoginError}"
-            app:errorEnabled="@{model.mLoginError != null}">
+            app:errorEnabled="false">
 
             <EditText
                 android:layout_width="match_parent"
@@ -35,10 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_small"
-            app:error="@{model.mPasswordError}"
-            app:errorEnabled="@{model.mPasswordError != null}"
+            app:errorEnabled="false"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorPrimary">
+            app:passwordToggleTint="@color/colorAccent">
 
             <EditText
                 android:layout_width="match_parent"
@@ -49,12 +50,20 @@
                 android:text="@={model.mPassword}"/>
         </android.support.design.widget.TextInputLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{model.error}"
+            android:textColor="@android:color/holo_red_dark"
+            app:visibleIf="@{!Strings.isNullOrEmpty(model.error)}"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/padding_default"
             android:onClick="@{() -> model.validate()}"
-            android:text="@string/button_login"/>
+            android:text="@string/button_login"
+            android:theme="@style/AccentColorButton"/>
     </LinearLayout>
 </layout>

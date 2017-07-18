@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion sdk.compile
@@ -76,7 +77,7 @@ dependencies {
     kapt dagger.compiler
     kapt dagger.processor
 
-    kapt "com.android.databinding:compiler:$android_plugin_version"
+    kapt support.dataBinding
 
     debugImplementation squareup.leakCanaryDebug
     releaseImplementation squareup.leakCanaryRelease

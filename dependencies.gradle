@@ -26,7 +26,8 @@ ext {
             appCompat:                  "com.android.support:appcompat-v7:${supportLibraryVersion}",
             appCompatV4:                "com.android.support:support-v4:${supportLibraryVersion}",
             appCompatV13:               "com.android.support:support-v13:${supportLibraryVersion}",
-            annotation:                 "com.android.support:support-annotations:${supportLibraryVersion}"
+            annotation:                 "com.android.support:support-annotations:${supportLibraryVersion}",
+            dataBinding:                "com.android.databinding:compiler:$android_plugin_version"
     ]
 
     squareup = [

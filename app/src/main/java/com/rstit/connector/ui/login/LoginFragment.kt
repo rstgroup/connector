@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,8 @@ import com.rstit.connector.R
 import com.rstit.connector.databinding.FragmentLoginBinding
 import com.rstit.connector.di.login.LoginModule
 import com.rstit.connector.ui.base.BaseFragment
-import com.rstit.ui.auth.login.LoginViewModel
 import javax.inject.Inject
+
 
 /**
  * @author Tomasz Trybala
@@ -24,7 +23,7 @@ class LoginFragment : BaseFragment(), CustomLoginViewAccess {
     @Inject
     lateinit var model: CustomLoginViewModel
 
-//    lateinit var binding: FragmentLoginBinding
+    lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,7 @@ class LoginFragment : BaseFragment(), CustomLoginViewAccess {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentLoginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, null, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, null, false)
         binding.model = model
 
         return binding.root
@@ -52,11 +51,11 @@ class LoginFragment : BaseFragment(), CustomLoginViewAccess {
     override fun getPasswordErrorMessage(): String = getString(R.string.error_password)
 
     override fun displayErrorMessage(@StringRes error: Int) {
-//        Snackbar.make(binding.root, getString(error), Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, getString(error), Snackbar.LENGTH_SHORT).show()
     }
 
     override fun navigateToMain() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun closeKeyboard() {

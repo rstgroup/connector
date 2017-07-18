@@ -5,6 +5,7 @@ import android.content.Context
 import com.rstit.connector.di.base.AppComponent
 import com.rstit.connector.di.base.AppModule
 import com.rstit.connector.di.base.DaggerAppComponent
+import com.rstit.connector.settings.AppSettingsImpl
 import com.squareup.leakcanary.LeakCanary
 
 /**

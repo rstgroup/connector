@@ -1,0 +1,40 @@
+package com.rstit.connector.settings
+
+import android.app.Activity
+import android.content.Context
+
+/**
+ * @author Tomasz Trybala
+ * @since 2017-07-18
+ */
+const val SETTINGS_NAME = "app_settings"
+const val SETTINGS_TOKEN = "api_token"
+
+class AppSettingsImpl(context: Context) : AppSettings {
+    private var context: Context = context.applicationContext
+
+    private fun saveToSettings(key: String, value: String) {
+        val settings = context.getSharedPreferences(SETTINGS_NAME, Activity.MODE_PRIVATE)
+        val preferencesEditor = settings.edit()
+
+        preferencesEditor.putString(key, value)
+        preferencesEditor.apply()
+    }
+
+    private fun loadFromSettings(key: String): String? {
+        val settings = context.getSharedPreferences(SETTINGS_NAME, Activity.MODE_PRIVATE)
+        return settings.getString(key, null)
+    }
+
+    override fun saveToken(token: String) {
+        saveToSettings(SETTINGS_TOKEN, token)
+    }
+
+    override fun isUserLogged(): Boolean {
+        return loadFromSettings(SETTINGS_TOKEN) != null
+    }
+
+    override fun loadToken(): String? {
+        return loadFromSettings(SETTINGS_TOKEN)
+    }
+}
