@@ -10,4 +10,6 @@ interface AppSettings {
     fun saveToken(token: String)
 
     fun isUserLogged(): Boolean
+
+    fun logOut()
 }

@@ -6,4 +6,6 @@
     <string name="button_login">sign in</string>
     <string name="hint_login">Email</string>
     <string name="hint_password">Password</string>
+
+    <string name="log_in_label">Sign in</string>
 </resources>

@@ -13,6 +13,14 @@ const val SETTINGS_TOKEN = "api_token"
 class AppSettingsImpl(context: Context) : AppSettings {
     private var context: Context = context.applicationContext
 
+    private fun clearSetting(key: String) {
+        val settings = context.getSharedPreferences(SETTINGS_NAME, Activity.MODE_PRIVATE)
+        val preferencesEditor = settings.edit()
+
+        preferencesEditor.remove(key)
+        preferencesEditor.apply()
+    }
+
     private fun saveToSettings(key: String, value: String) {
         val settings = context.getSharedPreferences(SETTINGS_NAME, Activity.MODE_PRIVATE)
         val preferencesEditor = settings.edit()
@@ -36,5 +44,9 @@ class AppSettingsImpl(context: Context) : AppSettings {
 
     override fun loadToken(): String? {
         return loadFromSettings(SETTINGS_TOKEN)
+    }
+
+    override fun logOut() {
+        clearSetting(SETTINGS_TOKEN)
     }
 }
