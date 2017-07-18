@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.rstit.ui.auth.login.LoginViewModel"/>
+            type="com.rstit.connector.ui.login.CustomLoginViewModel"/>
     </data>
 
     <LinearLayout
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/padding_default"
-            android:onClick="@{() -> model.isInputDataValid()}"
+            android:onClick="@{() -> model.validate()}"
             android:text="@string/button_login"/>
     </LinearLayout>
 </layout>

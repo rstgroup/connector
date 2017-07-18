@@ -1,6 +1,7 @@
 package com.rstit.connector.di.login
 
 import com.rstit.connector.di.base.scope.FragmentScope
+import com.rstit.connector.ui.login.CustomLoginViewAccess
 import com.rstit.connector.ui.login.LoginFragment
 import com.rstit.ui.auth.login.LoginViewAccess
 import dagger.Module
@@ -15,6 +16,12 @@ class LoginModule(private val fragment: LoginFragment) {
     @Provides
     @FragmentScope
     fun provideLoginFragment(): LoginFragment {
+        return fragment
+    }
+
+    @Provides
+    @FragmentScope
+    fun provideCustomLoginViewAccess(fragment: LoginFragment): CustomLoginViewAccess {
         return fragment
     }
 

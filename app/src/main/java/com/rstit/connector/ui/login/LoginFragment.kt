@@ -2,6 +2,8 @@ package com.rstit.connector.ui.login
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.annotation.StringRes
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,7 @@ import com.rstit.connector.ConnectorApplication
 import com.rstit.connector.R
 import com.rstit.connector.databinding.FragmentLoginBinding
 import com.rstit.connector.di.login.LoginModule
-import com.rstit.ui.auth.login.LoginViewAccess
+import com.rstit.connector.ui.base.BaseFragment
 import com.rstit.ui.auth.login.LoginViewModel
 import javax.inject.Inject
 
@@ -18,9 +20,11 @@ import javax.inject.Inject
  * @author Tomasz Trybala
  * @since 2017-07-17
  */
-class LoginFragment : Fragment(), LoginViewAccess {
+class LoginFragment : BaseFragment(), CustomLoginViewAccess {
     @Inject
-    lateinit var model: LoginViewModel
+    lateinit var model: CustomLoginViewModel
+
+//    lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,4 +50,16 @@ class LoginFragment : Fragment(), LoginViewAccess {
     override fun getLoginErrorMessage(): String = getString(R.string.error_login)
 
     override fun getPasswordErrorMessage(): String = getString(R.string.error_password)
+
+    override fun displayErrorMessage(@StringRes error: Int) {
+//        Snackbar.make(binding.root, getString(error), Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun navigateToMain() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun closeKeyboard() {
+        hideKeyboard()
+    }
 }
