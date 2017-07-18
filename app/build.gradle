@@ -21,7 +21,7 @@ android {
     }
 
     buildTypes {
-        debug{
+        debug {
             buildConfigField "String", 'API_URL', app.apiUrl
         }
 
@@ -35,10 +35,10 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
+}
 
-    kapt {
-        generateStubs = true
-    }
+kapt {
+    generateStubs = true
 }
 
 dependencies {
@@ -75,6 +75,8 @@ dependencies {
     implementation dagger.diSupport
     kapt dagger.compiler
     kapt dagger.processor
+
+    kapt "com.android.databinding:compiler:$android_plugin_version"
 
     debugImplementation squareup.leakCanaryDebug
     releaseImplementation squareup.leakCanaryRelease

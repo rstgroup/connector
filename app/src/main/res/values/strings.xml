@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RstConnector</string>
+
+    <string name="error_login">Please insert a correct email address</string>
+    <string name="error_password">Password cannot be empty</string>
+    <string name="button_login">sign in</string>
+    <string name="hint_login">Email</string>
+    <string name="hint_password">Password</string>
 </resources>

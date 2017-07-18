@@ -1,6 +1,7 @@
 package com.rstit.connector
 
 import android.app.Application
+import android.content.Context
 import com.rstit.connector.di.base.AppComponent
 import com.rstit.connector.di.base.AppModule
 import com.rstit.connector.di.base.DaggerAppComponent
@@ -11,7 +12,7 @@ import com.squareup.leakcanary.LeakCanary
  * @since 2017-07-17
  */
 class ConnectorApplication : Application() {
-    val component: AppComponent by lazy {
+    val appComponent: AppComponent by lazy {
         DaggerAppComponent
                 .builder()
                 .appModule(AppModule(this))
@@ -25,6 +26,10 @@ class ConnectorApplication : Application() {
             LeakCanary.install(this)
         }
 
-        component.inject(this)
+        appComponent.inject(this)
+    }
+
+    companion object {
+        fun get(context: Context) = context.applicationContext as ConnectorApplication
     }
 }
