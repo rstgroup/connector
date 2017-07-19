@@ -57,11 +57,13 @@
                     android:layout_height="wrap_content"
                     android:paddingEnd="@dimen/padding_default"
                     android:paddingStart="@dimen/padding_default"
+                    android:gravity="center"
                     android:text="@string/empty_inbox_text"
                     android:textColor="@android:color/darker_gray"/>
             </LinearLayout>
 
             <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:refreshing="@{model.loading}">
@@ -69,6 +71,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:overScrollMode="never"
                     app:adapter="@{viewAccess.adapter}"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
             </android.support.v4.widget.SwipeRefreshLayout>

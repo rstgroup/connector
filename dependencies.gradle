@@ -8,9 +8,9 @@ ext {
     fcmVersion = '11.0.2'
     glideVersion = '3.7.0'
     glideTransformationsVersion = '2.0.1'
-    rxJavaVersion = '1.1.1'
-    rxAndroidVersion = '1.1.0'
-    rxRetrofitAdapterVersion = '2.3.0'
+    rxJavaVersion = '2.0.6'
+    rxAndroidVersion = '2.0.1'
+    rxRetrofitAdapterVersion = '1.0.0'
     crashlyticsVersion = '2.5.5@aar'
     junitVersion = '4.12'
     dexmaker = '1.2'
@@ -55,9 +55,9 @@ ext {
     ]
 
     rx = [
-            java:                       "io.reactivex:rxjava:${rxJavaVersion}",
-            android:                    "io.reactivex:rxandroid:${rxAndroidVersion}",
-            retrofitAdapter:            "com.squareup.retrofit2:adapter-rxjava:${rxRetrofitAdapterVersion}"
+            java           :            "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            android        :            "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            retrofitAdapter:            "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${rxRetrofitAdapterVersion}"
     ]
 
     fabric = [

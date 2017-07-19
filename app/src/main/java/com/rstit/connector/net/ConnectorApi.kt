@@ -1,8 +1,8 @@
 package com.rstit.connector.net
 
+import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.POST
-import rx.Observable
 
 /**
  * @author Tomasz Trybala
