@@ -43,10 +43,6 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation kotlinBase.sdk
@@ -87,7 +83,7 @@ dependencies {
     debugImplementation squareup.leakCanaryDebug
     releaseImplementation squareup.leakCanaryRelease
 
-    testAnnotationProcessor dagger.compiler
+    kaptTest dagger.compiler
 
     testImplementation rx.java
     testImplementation rx.android

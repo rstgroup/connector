@@ -12,22 +12,17 @@ import dagger.Provides
  * @since 2017-07-17
  */
 @Module
+@FragmentScope
 class LoginModule(private val fragment: LoginFragment) {
     @Provides
     @FragmentScope
-    fun provideLoginFragment(): LoginFragment {
-        return fragment
-    }
+    fun provideLoginFragment(): LoginFragment = fragment
 
     @Provides
     @FragmentScope
-    fun provideCustomLoginViewAccess(fragment: LoginFragment): CustomLoginViewAccess {
-        return fragment
-    }
+    fun provideCustomLoginViewAccess(fragment: LoginFragment): CustomLoginViewAccess = fragment
 
     @Provides
     @FragmentScope
-    fun provideLoginViewAccess(fragment: LoginFragment): LoginViewAccess {
-        return fragment
-    }
+    fun provideLoginViewAccess(fragment: LoginFragment): LoginViewAccess = fragment
 }

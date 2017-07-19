@@ -1,6 +1,7 @@
 package com.rstit.connector.ui.login
 
 import com.rstit.binding.ObservableString
+import com.rstit.connector.di.base.scope.FragmentScope
 import com.rstit.ui.auth.login.LoginViewModel
 import javax.inject.Inject
 
@@ -8,6 +9,7 @@ import javax.inject.Inject
  * @author Tomasz Trybala
  * @since 2017-07-18
  */
+@FragmentScope
 class CustomLoginViewModel @Inject constructor() : LoginViewModel() {
     val error: ObservableString = ObservableString()
 

@@ -5,9 +5,7 @@ package com.rstit.connector.settings
  * @since 2017-07-18
  */
 interface AppSettings {
-    fun loadToken(): String?
-
-    fun saveToken(token: String)
+    var apiToken: String?
 
     fun isUserLogged(): Boolean
 

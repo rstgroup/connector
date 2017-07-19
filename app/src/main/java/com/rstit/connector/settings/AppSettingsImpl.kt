@@ -29,14 +29,11 @@ class AppSettingsImpl(context: Context) : AppSettings {
         preferencesEditor.apply()
     }
 
-    private fun loadFromSettings(key: String): String? {
-        val settings = context.getSharedPreferences(SETTINGS_NAME, Activity.MODE_PRIVATE)
-        return settings.getString(key, null)
-    }
+    private fun loadFromSettings(key: String): String? =
+            context.getSharedPreferences(SETTINGS_NAME, Activity.MODE_PRIVATE).getString(key, null)
 
-    override fun saveToken(token: String) {
-        saveToSettings(SETTINGS_TOKEN, token)
-    }
+    override fun isUserLogged(): Boolean =
+            loadFromSettings(SETTINGS_TOKEN) != null
 
     override fun isUserLogged(): Boolean {
         return loadFromSettings(SETTINGS_TOKEN) != null
@@ -49,4 +46,7 @@ class AppSettingsImpl(context: Context) : AppSettings {
     override fun logOut() {
         clearSetting(SETTINGS_TOKEN)
     }
+    override var apiToken: String?
+        get() = loadFromSettings(SETTINGS_TOKEN)
+        set(value) = value.let { saveToSettings(SETTINGS_TOKEN, it!!) }
 }
