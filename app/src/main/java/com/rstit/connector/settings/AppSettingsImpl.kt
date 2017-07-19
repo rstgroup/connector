@@ -10,6 +10,7 @@ import android.content.Context
 const val SETTINGS_NAME = "app_settings"
 const val SETTINGS_TOKEN = "api_token"
 
+
 class AppSettingsImpl(context: Context) : AppSettings {
     private var context: Context = context.applicationContext
 
@@ -32,20 +33,10 @@ class AppSettingsImpl(context: Context) : AppSettings {
     private fun loadFromSettings(key: String): String? =
             context.getSharedPreferences(SETTINGS_NAME, Activity.MODE_PRIVATE).getString(key, null)
 
-    override fun isUserLogged(): Boolean =
-            loadFromSettings(SETTINGS_TOKEN) != null
+    override fun isUserLogged(): Boolean = loadFromSettings(SETTINGS_TOKEN) != null
 
-    override fun isUserLogged(): Boolean {
-        return loadFromSettings(SETTINGS_TOKEN) != null
-    }
+    override fun logOut() = clearSetting(SETTINGS_TOKEN)
 
-    override fun loadToken(): String? {
-        return loadFromSettings(SETTINGS_TOKEN)
-    }
-
-    override fun logOut() {
-        clearSetting(SETTINGS_TOKEN)
-    }
     override var apiToken: String?
         get() = loadFromSettings(SETTINGS_TOKEN)
         set(value) = value.let { saveToSettings(SETTINGS_TOKEN, it!!) }
