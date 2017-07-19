@@ -88,7 +88,8 @@
             fab:fab_addButtonPlusIconColor="@android:color/white"
             fab:fab_addButtonSize="normal"
             fab:fab_labelStyle="@style/FabMenuLabel"
-            fab:fab_labelsPosition="left">
+            fab:fab_labelsPosition="left"
+            app:visibleIf="@{model.isChatAvailable}">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 style="@style/FabMenuStyle"

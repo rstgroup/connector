@@ -39,6 +39,10 @@ class MainActivity : BaseActivity(), MainViewAccess {
         //todo navigate to chat
     }
 
+    private fun navigateToChangePassword() {
+        //todo navigate to chat
+    }
+
     private fun signOut() {
         startActivity(Intent(this, AuthActivity::class.java))
         finish()
@@ -57,6 +61,7 @@ class MainActivity : BaseActivity(), MainViewAccess {
     private fun setToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.title = getString(R.string.main_label)
+        supportActionBar!!.setIcon(R.drawable.ic_rst_24dp)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,6 +103,10 @@ class MainActivity : BaseActivity(), MainViewAccess {
             when (item?.itemId) {
                 R.id.action_sign_out -> {
                     displaySignOutDialog()
+                    true
+                }
+                R.id.action_change_password -> {
+                    navigateToChangePassword()
                     true
                 }
                 else -> super.onOptionsItemSelected(item)

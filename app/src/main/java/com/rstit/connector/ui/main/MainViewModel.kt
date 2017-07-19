@@ -17,6 +17,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor() : BaseViewModel() {
     val loading: ObservableBoolean = ObservableBoolean()
     val isEmpty: ObservableBoolean = ObservableBoolean()
+    val isChatAvailable: ObservableBoolean = ObservableBoolean()
     val models: MutableList<RowViewModel> = ArrayList()
 
     @Inject
