@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fab="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -55,9 +56,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:paddingEnd="@dimen/padding_default"
                     android:paddingStart="@dimen/padding_default"
-                    android:gravity="center"
                     android:text="@string/empty_inbox_text"
                     android:textColor="@android:color/darker_gray"/>
             </LinearLayout>
@@ -76,5 +77,30 @@
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
             </android.support.v4.widget.SwipeRefreshLayout>
         </FrameLayout>
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/fabMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            fab:fab_addButtonColorNormal="@color/colorAccent"
+            fab:fab_addButtonColorPressed="@color/colorAccentDark"
+            fab:fab_addButtonPlusIconColor="@android:color/white"
+            fab:fab_addButtonSize="normal"
+            fab:fab_labelStyle="@style/FabMenuLabel"
+            fab:fab_labelsPosition="left">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                style="@style/FabMenuStyle"
+                android:onClick="@{() -> viewAccess.selectPerson()}"
+                fab:fab_icon="@drawable/ic_chat_bubble_white_24dp"
+                fab:fab_title="@string/fab_chat_one"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                style="@style/FabMenuStyle"
+                android:onClick="@{() -> viewAccess.writeToAll()}"
+                fab:fab_icon="@drawable/ic_forum_white_24dp"
+                fab:fab_title="@string/fab_chat_all"/>
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

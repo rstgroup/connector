@@ -18,6 +18,7 @@ ext {
     requeryVersion = '1.1.2'
     rstAndroidBaseVersion = '1.0.2'
     daggerVersion = '2.11'
+    fabMenuVersion = '1.10.1'
 
     support = [
             design:                     "com.android.support:design:${supportLibraryVersion}",
@@ -90,5 +91,9 @@ ext {
             processor:                   "com.google.dagger:dagger-android-processor:${daggerVersion}",
             di      :                    "com.google.dagger:dagger:${daggerVersion}",
             diSupport :                  "com.google.dagger:dagger-android-support:${daggerVersion}",
+    ]
+
+    views = [
+            fabMenu:                     "com.getbase:floatingactionbutton:${fabMenuVersion}"
     ]
 }

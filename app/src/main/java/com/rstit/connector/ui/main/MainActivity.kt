@@ -76,6 +76,16 @@ class MainActivity : BaseActivity(), MainViewAccess {
         model.loadData()
     }
 
+    override fun selectPerson() {
+        binding.fabMenu.collapse()
+        //todo implement
+    }
+
+    override fun writeToAll() {
+        binding.fabMenu.collapse()
+        //todo implement
+    }
+
     override fun notifyDataSetChanged() =
             adapter.notifyDataSetChanged()
 

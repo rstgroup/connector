@@ -10,4 +10,8 @@ interface MainViewAccess {
     val adapter: MultiViewAdapter
 
     fun notifyDataSetChanged()
+
+    fun selectPerson()
+
+    fun writeToAll()
 }

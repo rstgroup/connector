@@ -54,6 +54,8 @@ dependencies {
     implementation support.recyclerView
     implementation support.cardView
 
+    implementation views.fabMenu
+
     implementation squareup.retrofit
     implementation squareup.retrofitGson
     implementation squareup.loggingInterceptor
