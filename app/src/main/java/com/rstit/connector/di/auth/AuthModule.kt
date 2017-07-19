@@ -11,16 +11,13 @@ import dagger.Provides
  * @since 2017-07-17
  */
 @Module
+@ActivityScope
 class AuthModule(private val activity: AuthActivity) {
     @Provides
     @ActivityScope
-    fun provideAuthActivity(): AuthActivity {
-        return activity
-    }
+    fun provideAuthActivity(): AuthActivity = activity
 
     @Provides
     @ActivityScope
-    fun provideAuthViewAccess(activity: AuthActivity): AuthViewAccess {
-        return activity
-    }
+    fun provideAuthViewAccess(activity: AuthActivity): AuthViewAccess = activity
 }

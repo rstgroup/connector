@@ -2,12 +2,11 @@ package com.rstit.connector.ui.auth
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import com.rstit.connector.ConnectorApplication
 import com.rstit.connector.R
 import com.rstit.connector.databinding.ActivityAuthBinding
 import com.rstit.connector.di.auth.AuthModule
 import com.rstit.connector.ui.base.BaseActivity
+import com.rstit.connector.ui.login.LoginFragment
 import javax.inject.Inject
 
 /**
@@ -18,20 +17,17 @@ class AuthActivity : BaseActivity(), AuthViewAccess {
     @Inject
     lateinit var model: AuthViewModel
 
-    override fun replaceFragment(fragment: Fragment) {
+    override fun showSignIn() {
         supportFragmentManager.
                 beginTransaction()
-                .replace(R.id.flContainer, fragment)
+                .replace(R.id.flContainer, LoginFragment())
                 .commit()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ConnectorApplication.get(this)
-                .appComponent
-                .plus(AuthModule(this))
-                .inject(this)
+        appComponent.plus(AuthModule(this)).inject(this)
 
         val binding: ActivityAuthBinding = DataBindingUtil.setContentView(this, R.layout.activity_auth)
         binding.model = model

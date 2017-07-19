@@ -2,12 +2,9 @@ package com.rstit.connector.ui.login
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.rstit.connector.ConnectorApplication
 import com.rstit.connector.R
 import com.rstit.connector.databinding.FragmentLoginBinding
 import com.rstit.connector.di.login.LoginModule
@@ -27,11 +24,7 @@ class LoginFragment : BaseFragment(), CustomLoginViewAccess {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        ConnectorApplication.get(activity)
-                .appComponent
-                .plus(LoginModule(this))
-                .inject(this)
+        appComponent.plus(LoginModule(this)).inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,15 +43,9 @@ class LoginFragment : BaseFragment(), CustomLoginViewAccess {
 
     override fun getPasswordErrorMessage(): String = getString(R.string.error_password)
 
-    override fun displayErrorMessage(@StringRes error: Int) {
-        Snackbar.make(binding.root, getString(error), Snackbar.LENGTH_SHORT).show()
-    }
-
     override fun navigateToMain() {
-
+        //todo
     }
 
-    override fun closeKeyboard() {
-        hideKeyboard()
-    }
+    override fun closeKeyboard() = hideKeyboard()
 }

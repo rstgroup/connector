@@ -1,6 +1,5 @@
 package com.rstit.connector.di.base
 
-import com.google.common.base.Strings
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -40,18 +39,19 @@ class NetModule {
         val builder = OkHttpClient.Builder()
 
         if (BuildConfig.DEBUG) {
-            val logging = HttpLoggingInterceptor()
-            logging.level = HttpLoggingInterceptor.Level.BODY
+            val logging = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
             builder.addInterceptor(logging)
         }
 
         builder.addInterceptor { chain ->
             val original = chain.request()
-            val token = appSettings.loadToken()
+            val token = appSettings.apiToken
 
-            if (!Strings.isNullOrEmpty(token)) {
+            if (!token.isNullOrEmpty()) {
                 val request = original.newBuilder()
-                        .header(HEADER_AUTHORIZATION, token!!)
+                        .header(HEADER_AUTHORIZATION, token)
                         .method(original.method(), original.body())
                         .build()
 
@@ -74,14 +74,15 @@ class NetModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(gson: Gson, client: OkHttpClient) = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl(BuildConfig.API_URL)
-            .client(client)
-            .build()
+    fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit =
+            Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .baseUrl(BuildConfig.API_URL)
+                    .client(client)
+                    .build()
 
     @Provides
     @Singleton
-    fun provideApi(retrofit: Retrofit) = retrofit.create(ConnectorApi::class.java)
+    fun provideApi(retrofit: Retrofit): ConnectorApi = retrofit.create(ConnectorApi::class.java)
 }

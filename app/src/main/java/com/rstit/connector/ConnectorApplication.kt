@@ -5,7 +5,6 @@ import android.content.Context
 import com.rstit.connector.di.base.AppComponent
 import com.rstit.connector.di.base.AppModule
 import com.rstit.connector.di.base.DaggerAppComponent
-import com.rstit.connector.settings.AppSettingsImpl
 import com.squareup.leakcanary.LeakCanary
 
 /**
@@ -22,6 +21,10 @@ class ConnectorApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
 
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this)
