@@ -7,5 +7,7 @@ import com.rstit.connector.ui.base.MultiViewAdapter
  * @since 2017-07-18
  */
 interface MainViewAccess {
-    fun getAdapter(): MultiViewAdapter
+    val adapter: MultiViewAdapter
+
+    fun notifyDataSetChanged()
 }

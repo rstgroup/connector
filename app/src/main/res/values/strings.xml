@@ -8,4 +8,8 @@
     <string name="hint_password">Password</string>
 
     <string name="log_in_label">Sign in</string>
+    <string name="main_label">Inbox</string>
+    <string name="ct_avatar_icon">avatar_icon</string>
+    <string name="ct_empty_inbox">empty_inbox</string>
+    <string name="empty_inbox_text">Your inbox is empty. Wait for messages sent by HR department.</string>
 </resources>

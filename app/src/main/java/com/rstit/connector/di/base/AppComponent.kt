@@ -5,6 +5,8 @@ import com.rstit.connector.di.auth.AuthComponent
 import com.rstit.connector.di.auth.AuthModule
 import com.rstit.connector.di.login.LoginComponent
 import com.rstit.connector.di.login.LoginModule
+import com.rstit.connector.di.main.MainComponent
+import com.rstit.connector.di.main.MainModule
 import com.rstit.di.base.ValidationModule
 import dagger.Component
 import javax.inject.Singleton
@@ -21,4 +23,6 @@ interface AppComponent {
     fun plus(module: LoginModule): LoginComponent
 
     fun plus(module: AuthModule): AuthComponent
+
+    fun plus(module: MainModule): MainComponent
 }
