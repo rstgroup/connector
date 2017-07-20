@@ -14,6 +14,7 @@ import com.rstit.connector.di.main.MainModule
 import com.rstit.connector.ui.auth.AuthActivity
 import com.rstit.connector.ui.base.BaseActivity
 import com.rstit.connector.ui.base.MultiViewAdapter
+import com.rstit.connector.ui.password.ResetPasswordActivity
 import javax.inject.Inject
 
 /**
@@ -40,7 +41,7 @@ class MainActivity : BaseActivity(), MainViewAccess {
     }
 
     private fun navigateToChangePassword() {
-        //todo navigate to chat
+        startActivity(Intent(this, ResetPasswordActivity::class.java))
     }
 
     private fun signOut() {
@@ -52,8 +53,8 @@ class MainActivity : BaseActivity(), MainViewAccess {
             AlertDialog.Builder(this)
                     .setTitle(R.string.sign_out_label)
                     .setMessage(R.string.sign_out_message)
-                    .setNegativeButton(R.string.sign_out_cancel, { dialog, i -> /*no-op*/ })
-                    .setPositiveButton(R.string.sign_out_yes, { dialog, i -> signOut() })
+                    .setNegativeButton(R.string.sign_out_cancel, { _, _ -> /*no-op*/ })
+                    .setPositiveButton(R.string.sign_out_yes, { _, _ -> signOut() })
                     .create()
                     .show()
 

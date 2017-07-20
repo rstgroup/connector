@@ -2,7 +2,7 @@
     <string name="app_name">RstConnector</string>
 
     <string name="error_login">Please insert a correct email address</string>
-    <string name="error_password">Password cannot be empty</string>
+    <string name="error_password">Password has to contain at least 6 characters</string>
     <string name="button_login">sign in</string>
     <string name="hint_login">Email</string>
     <string name="hint_password">Password</string>
@@ -22,4 +22,13 @@
     <string name="sign_out_cancel">Cancel</string>
     <string name="fab_chat_one">Chat someone</string>
     <string name="fab_chat_all">Write to all</string>
+
+    <string name="reset_password_old_invalid">Your current password is not valid. Please insert the correct one.</string>
+    <string name="reset_password_new_invalid">New password has to contain at least 6 characters.</string>
+    <string name="reset_password_confirm_invalid">Invalid confirmation the new password</string>
+    <string name="reset_password_old_invalid_empty">Old password cannot be empty.</string>
+
+    <string name="hint_old_password">Old password</string>
+    <string name="hint_new_password">New password</string>
+    <string name="hint_confirm_password">Confirm password</string>
 </resources>
