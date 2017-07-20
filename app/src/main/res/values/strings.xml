@@ -12,6 +12,8 @@
 
     <string name="ct_avatar_icon">avatar_icon</string>
     <string name="ct_empty_inbox">empty_inbox</string>
+    <string name="ct_icon_close">icon_close</string>
+    <string name="ct_icon_send">icon_send</string>
     <string name="empty_inbox_text">Your inbox is empty.\nWait for messages sent by HR department.</string>
 
     <string name="sign_out_label">Sign out</string>
@@ -31,4 +33,8 @@
     <string name="hint_old_password">Old password</string>
     <string name="hint_new_password">New password</string>
     <string name="hint_confirm_password">Confirm password</string>
+
+
+    <string name="message_to_all_hint">Insert your message</string>
+    <string name="message_to_all_success">Message sent successfully.</string>
 </resources>

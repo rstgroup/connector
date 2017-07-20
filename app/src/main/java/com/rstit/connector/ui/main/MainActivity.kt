@@ -17,6 +17,7 @@ import com.rstit.connector.ui.base.MultiViewAdapter
 import com.rstit.connector.ui.password.ResetPasswordActivity
 import javax.inject.Inject
 
+
 /**
  * @author Tomasz Trybala
  * @since 2017-07-18
@@ -89,11 +90,19 @@ class MainActivity : BaseActivity(), MainViewAccess {
 
     override fun writeToAll() {
         binding.fabMenu.collapse()
-        //todo implement
+        model.showMessage()
     }
 
-    override fun notifyDataSetChanged() =
-            adapter.notifyDataSetChanged()
+    override fun closeKeyboard() {
+        hideKeyboard()
+    }
+
+    override fun displaySuccessSnackbar() {
+        model.hideMessage()
+        showSnackbar(binding.mainCoordinator, R.string.message_to_all_success)
+    }
+
+    override fun notifyDataSetChanged() = adapter.notifyDataSetChanged()
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)

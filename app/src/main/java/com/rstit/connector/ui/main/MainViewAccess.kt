@@ -14,4 +14,8 @@ interface MainViewAccess {
     fun selectPerson()
 
     fun writeToAll()
+
+    fun closeKeyboard()
+
+    fun displaySuccessSnackbar()
 }

@@ -1,6 +1,7 @@
 package com.rstit.connector.ui.main
 
 import android.databinding.ObservableBoolean
+import com.rstit.binding.ObservableString
 import com.rstit.connector.net.ConnectorApi
 import com.rstit.connector.ui.base.RowViewModel
 import com.rstit.ui.base.model.BaseViewModel
@@ -17,7 +18,9 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor() : BaseViewModel() {
     val loading: ObservableBoolean = ObservableBoolean()
     val isEmpty: ObservableBoolean = ObservableBoolean()
-    val isChatAvailable: ObservableBoolean = ObservableBoolean()
+    val isChatAvailable: ObservableBoolean = ObservableBoolean(true)
+    val isMessageVisible: ObservableBoolean = ObservableBoolean()
+    val messageToAll = ObservableString()
     val models: MutableList<RowViewModel> = ArrayList()
 
     @Inject
@@ -25,6 +28,14 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     lateinit var api: ConnectorApi
+
+    fun hideMessage() {
+        isMessageVisible.set(false)
+        messageToAll.set("")
+        viewAccess.closeKeyboard()
+    }
+
+    fun showMessage() = isMessageVisible.set(true)
 
     fun loadData() {
         val model1 = MainRowViewModel("Tomasz Trybała", "English and English-like: Latin (except Vietnamese), Greek, and Cyrillic scripts, supported by both Roboto and Noto. Roboto has been extended to completely cover all Latin, Greek, and Cyrillic characters as defined in Unicode 7.0. The number of supported characters has doubled from previous releases, from about 2000 to about 4000 characters.",
@@ -34,8 +45,8 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         registerDisposable(Observable.fromIterable(list)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe({loading.set(true)})
-                .doOnTerminate({loading.set(false)})
+                .doOnSubscribe({ loading.set(true) })
+                .doOnTerminate({ loading.set(false) })
                 .toList()
                 .subscribe({ models -> handleModels(models, true) }, { handleError() }))
     }
@@ -49,5 +60,10 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
 
     fun handleError() {
         isEmpty.set(models.isEmpty())
+    }
+
+    fun sendMessageToAll() {
+        //todo send to api
+        viewAccess.displaySuccessSnackbar()
     }
 }
