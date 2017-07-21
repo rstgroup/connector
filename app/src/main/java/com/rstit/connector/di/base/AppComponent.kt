@@ -9,6 +9,8 @@ import com.rstit.connector.di.main.MainComponent
 import com.rstit.connector.di.main.MainModule
 import com.rstit.connector.di.password.ResetPasswordComponent
 import com.rstit.connector.di.password.ResetPasswordModule
+import com.rstit.connector.di.search.UserSearchComponent
+import com.rstit.connector.di.search.UserSearchModule
 import com.rstit.di.base.ValidationModule
 import dagger.Component
 import javax.inject.Singleton
@@ -29,4 +31,6 @@ interface AppComponent {
     fun plus(module: MainModule): MainComponent
 
     fun plus(module: ResetPasswordModule): ResetPasswordComponent
+
+    fun plus(module: UserSearchModule): UserSearchComponent
 }

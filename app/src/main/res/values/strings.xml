@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RstConnector</string>
+    <string name="app_name">Connector</string>
 
     <string name="error_login">Please insert a correct email address</string>
     <string name="error_password">Password has to contain at least 6 characters</string>
@@ -14,7 +14,11 @@
 
     <string name="ct_avatar_icon">avatar_icon</string>
     <string name="ct_empty_inbox">empty_inbox</string>
+    <string name="ct_empty_search">empty_search</string>
     <string name="ct_icon_close">icon_close</string>
+    <string name="ct_icon_back">icon_back</string>
+    <string name="ct_icon_logo">icon_logo</string>
+    <string name="ct_icon_microphone">icon_microphone</string>
     <string name="ct_icon_send">icon_send</string>
     <string name="empty_inbox_text">Your inbox is empty.\nWait for messages sent by HR department.</string>
 
@@ -36,8 +40,9 @@
     <string name="hint_new_password">New password</string>
     <string name="hint_confirm_password">Confirm password</string>
 
-
     <string name="message_to_all_hint">Insert your message</string>
     <string name="message_to_all_success">Message sent successfully.</string>
     <string name="message_to_all_error">Something went wrong.\nPlease try again.</string>
+
+    <string name="user_search_empty">No users found.\nPlease try using other words.</string>
 </resources>

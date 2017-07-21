@@ -16,6 +16,7 @@ import com.rstit.connector.ui.auth.AuthActivity
 import com.rstit.connector.ui.base.BaseActivity
 import com.rstit.connector.ui.base.MultiViewAdapter
 import com.rstit.connector.ui.password.ResetPasswordActivity
+import com.rstit.connector.ui.search.UserSearchActivity
 import javax.inject.Inject
 
 
@@ -63,8 +64,6 @@ class MainActivity : BaseActivity(), MainViewAccess {
 
     private fun setToolbar() {
         setSupportActionBar(binding.toolbar)
-        supportActionBar!!.title = getString(R.string.main_label)
-        supportActionBar!!.setIcon(R.drawable.ic_rst_24dp)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,7 +85,7 @@ class MainActivity : BaseActivity(), MainViewAccess {
 
     override fun selectPerson() {
         binding.fabMenu.collapse()
-        //todo implement
+        startActivity(Intent(this, UserSearchActivity::class.java))
     }
 
     override fun writeToAll() {
