@@ -43,9 +43,7 @@ class MainActivity : BaseActivity(), MainViewAccess {
         //todo navigate to chat
     }
 
-    private fun navigateToChangePassword() {
-        startActivity(Intent(this, ResetPasswordActivity::class.java))
-    }
+    private fun navigateToChangePassword() = startActivity(Intent(this, ResetPasswordActivity::class.java))
 
     private fun signOut() {
         startActivity(Intent(this, AuthActivity::class.java))
@@ -62,9 +60,7 @@ class MainActivity : BaseActivity(), MainViewAccess {
                     .show()
 
 
-    private fun setToolbar() {
-        setSupportActionBar(binding.toolbar)
-    }
+    private fun setToolbar() = setSupportActionBar(binding.toolbar)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

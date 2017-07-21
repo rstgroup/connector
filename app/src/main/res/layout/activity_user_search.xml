@@ -47,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
+                    android:background="@android:color/transparent"
                     android:gravity="start|center_vertical"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
@@ -54,7 +55,6 @@
                     android:text="@={model.searchText}"
                     android:textColor="@android:color/white"
                     android:textCursorDrawable="@null"
-                    android:background="@android:color/transparent"
                     android:textSize="@dimen/font_large"
                     tools:ignore="LabelFor"/>
 
@@ -88,44 +88,47 @@
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
 
-        <!--<FrameLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:animateLayoutChanges="true"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical"-->
-        <!--android:padding="@dimen/padding_xlarge"-->
-        <!--app:visibleIf="@{model.isEmpty}"-->
-        <!--tools:ignore="UseCompoundDrawables">-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_xlarge"
+                app:visibleIf="@{model.isEmpty}"
+                tools:ignore="UseCompoundDrawables">
 
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="@dimen/padding_default"-->
-        <!--android:contentDescription="@string/ct_empty_search"-->
-        <!--android:src="@drawable/ic_account_search_black_48dp"-->
-        <!--android:tint="@android:color/darker_gray"/>-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding_default"
+                    android:contentDescription="@string/ct_empty_search"
+                    android:src="@drawable/ic_account_search_black_48dp"
+                    android:tint="@android:color/darker_gray"/>
 
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:paddingEnd="@dimen/padding_default"-->
-        <!--android:paddingStart="@dimen/padding_default"-->
-        <!--android:text="@string/user_search_empty"-->
-        <!--android:textColor="@android:color/darker_gray"/>-->
-        <!--</LinearLayout>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:paddingStart="@dimen/padding_default"
+                    android:text="@string/user_search_empty"
+                    android:textColor="@android:color/darker_gray"/>
+            </LinearLayout>
 
-        <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:overScrollMode="never"-->
-        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>-->
-        <!--</FrameLayout>-->
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingBottom="@dimen/padding_default"
+                android:paddingTop="@dimen/padding_default"
+                app:adapter="@{viewAccess.adapter}"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+        </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

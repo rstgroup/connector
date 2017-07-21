@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -13,6 +14,8 @@ import com.rstit.connector.R
 import com.rstit.connector.databinding.ActivityUserSearchBinding
 import com.rstit.connector.di.search.UserSearchModule
 import com.rstit.connector.ui.base.BaseActivity
+import com.rstit.connector.ui.base.MultiViewAdapter
+import com.rstit.connector.util.SimpleTextWatcher
 import java.util.*
 import javax.inject.Inject
 
@@ -24,6 +27,42 @@ import javax.inject.Inject
 const val SPEECH_RECOGNITION_CODE = 44
 
 class UserSearchActivity : BaseActivity(), UserSearchViewAccess {
+    @Inject
+    lateinit var model: UserSearchViewModel
+
+    lateinit var binding: ActivityUserSearchBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        appComponent.plus(UserSearchModule(this)).inject(this)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_search)
+        binding.model = model
+        binding.viewAccess = this
+        binding.edtSearch.addTextChangedListener(textWatcher)
+
+        model.isMicAvailable.set(SpeechRecognizer.isRecognitionAvailable(this))
+        model.initSearching()
+    }
+
+    override fun onDestroy() {
+        model.clearDisposables()
+        super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            SPEECH_RECOGNITION_CODE -> (setSpeechResult(resultCode, data))
+        }
+    }
+
+    override fun notifyDataSetChanged(previousSize: Int, currentSize: Int) {
+        adapter.notifyItemRangeRemoved(0, previousSize)
+        adapter.notifyItemRangeChanged(0, currentSize)
+    }
+
     override fun startSpeaking() {
         try {
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -38,33 +77,19 @@ class UserSearchActivity : BaseActivity(), UserSearchViewAccess {
 
     override fun finishActivity() = finish()
 
-    @Inject
-    lateinit var model: UserSearchViewModel
-
-    lateinit var binding: ActivityUserSearchBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        appComponent.plus(UserSearchModule(this)).inject(this)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_search)
-        binding.model = model
-        binding.viewAccess = this
-
-        model.isMicAvailable.set(SpeechRecognizer.isRecognitionAvailable(this))
+    override val adapter: MultiViewAdapter by lazy {
+        MultiViewAdapter.Builder(model.models)
+                .register(R.layout.row_user, UserRowViewModel::class.java, this::setUserListener)
+                .build()
     }
 
-    override fun onDestroy() {
-        model.clearDisposables()
-        super.onDestroy()
-    }
+    override val textWatcher = SimpleTextWatcher()
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun setUserListener(model: UserRowViewModel, binding: ViewDataBinding) =
+            binding.root.setOnClickListener({ navigateToChat(model) })
 
-        when (requestCode) {
-            SPEECH_RECOGNITION_CODE -> (setSpeechResult(resultCode, data))
-        }
+    private fun navigateToChat(model: UserRowViewModel) {
+        //todo navigate to chat
     }
 
     private fun setSpeechResult(resultCode: Int, data: Intent?) {

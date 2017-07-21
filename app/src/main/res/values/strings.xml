@@ -45,7 +45,7 @@
 
     <string name="message_to_all_hint">Insert your message</string>
     <string name="message_to_all_success">Message sent successfully.</string>
-    <string name="message_to_all_error">Something went wrong.\nPlease try again.</string>
+    <string name="message_to_all_error">Something went wrong. Please try again.</string>
 
     <string name="user_search_empty">No users found.\nPlease try using other words.</string>
 </resources>

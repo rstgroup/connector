@@ -7,14 +7,15 @@
 
         <variable
             name="model"
-            type="com.rstit.connector.ui.main.MainRowViewModel"/>
+            type="com.rstit.connector.ui.search.UserRowViewModel"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:paddingStart="@dimen/padding_large"
         android:paddingEnd="@dimen/padding_large"
         android:paddingTop="@dimen/padding_default"
@@ -28,26 +29,11 @@
             app:circleImage="@{model.avatar}"
             tools:src="@drawable/ic_account_circle_grey"/>
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{model.name}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                tools:text="Three-line item"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@{model.lastName}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                tools:text="Three-line item"/>
-        </LinearLayout>
+            android:text="@{model.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            tools:text="Three-line item"/>
     </LinearLayout>
 </layout>
