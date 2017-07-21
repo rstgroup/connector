@@ -82,6 +82,10 @@ dependencies {
 
     kapt support.dataBinding
 
+    implementation paperParcel.library
+    implementation paperParcel.kotlin
+    kapt paperParcel.compiler
+
     debugImplementation squareup.leakCanaryDebug
     releaseImplementation squareup.leakCanaryRelease
 
