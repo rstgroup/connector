@@ -3,6 +3,7 @@
 
     <string name="error_login">Please insert a correct email address</string>
     <string name="error_password">Password has to contain at least 6 characters</string>
+    <string name="error_sign_in">Something went wrong. Please try again.</string>
     <string name="button_login">sign in</string>
     <string name="button_retry">retry</string>
     <string name="hint_login">Email</string>

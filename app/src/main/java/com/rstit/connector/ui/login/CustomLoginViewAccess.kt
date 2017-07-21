@@ -10,4 +10,6 @@ interface CustomLoginViewAccess : LoginViewAccess {
     fun closeKeyboard()
 
     fun navigateToMain()
+
+    fun displayError()
 }
