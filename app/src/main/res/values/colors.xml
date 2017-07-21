@@ -8,4 +8,5 @@
     <color name="colorPrimarySemiTransparent">#88f15921</color>
     <color name="menuLabel">#88000000</color>
     <color name="backgroundLight">#fafafa</color>
+    <color name="backgroundProgress">#33000000</color>
 </resources>

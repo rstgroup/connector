@@ -4,6 +4,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
@@ -93,14 +94,14 @@ class MainActivity : BaseActivity(), MainViewAccess {
         model.showMessage()
     }
 
-    override fun closeKeyboard() {
-        hideKeyboard()
-    }
+    override fun closeKeyboard() = hideKeyboard()
 
     override fun displaySuccessSnackbar() {
         model.hideMessage()
-        showSnackbar(binding.mainCoordinator, R.string.message_to_all_success)
+        showSnackbar(binding.mainCoordinator, R.string.message_to_all_success, Snackbar.LENGTH_LONG)
     }
+
+    override fun displayErrorMessage() = showSnackbar(binding.flMessage, R.string.message_to_all_error)
 
     override fun notifyDataSetChanged() = adapter.notifyDataSetChanged()
 

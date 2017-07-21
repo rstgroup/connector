@@ -2,6 +2,7 @@ package com.rstit.connector.ui.main
 
 import android.databinding.ObservableBoolean
 import com.rstit.binding.ObservableString
+import com.rstit.connector.model.password.MessageToAllBody
 import com.rstit.connector.net.ConnectorApi
 import com.rstit.connector.ui.base.RowViewModel
 import com.rstit.ui.base.model.BaseViewModel
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor() : BaseViewModel() {
     val loading: ObservableBoolean = ObservableBoolean()
     val isEmpty: ObservableBoolean = ObservableBoolean()
+    val isSendingMessage: ObservableBoolean = ObservableBoolean()
     val isChatAvailable: ObservableBoolean = ObservableBoolean(true)
     val isMessageVisible: ObservableBoolean = ObservableBoolean()
     val messageToAll = ObservableString()
@@ -63,7 +65,15 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun sendMessageToAll() {
-        //todo send to api
-        viewAccess.displaySuccessSnackbar()
+        registerDisposable(api.sendMessageToAll(
+                MessageToAllBody(messageToAll.get()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe({
+                    isSendingMessage.set(true)
+                    viewAccess.closeKeyboard()
+                })
+                .doOnTerminate({ isSendingMessage.set(false) })
+                .subscribe({ viewAccess.displaySuccessSnackbar() }, { viewAccess.displayErrorMessage() }))
     }
 }

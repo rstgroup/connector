@@ -27,6 +27,10 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun showSnackbar(view: View, @StringRes message: Int, delay: Int = Snackbar.LENGTH_LONG,
+                     actionId: Int, runnable: (View) -> Unit) =
+            Snackbar.make(view, message, delay).setAction(actionId, runnable).show()
+
     fun showSnackbar(view: View, @StringRes message: Int, delay: Int = Snackbar.LENGTH_SHORT) =
             Snackbar.make(view, message, delay).show()
 }

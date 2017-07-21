@@ -165,15 +165,36 @@
                 </LinearLayout>
             </android.support.design.widget.AppBarLayout>
 
-            <EditText
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/backgroundLight"
-                android:gravity="start"
-                android:hint="@string/message_to_all_hint"
-                android:padding="@dimen/padding_large"
-                android:text="@={model.messageToAll}"
-                android:textSize="@dimen/font_large"/>
+                android:animateLayoutChanges="true">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundLight"
+                    android:gravity="start"
+                    android:hint="@string/message_to_all_hint"
+                    android:padding="@dimen/padding_large"
+                    android:text="@={model.messageToAll}"
+                    android:textSize="@dimen/font_large"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundProgress"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    app:visibleIf="@{model.isSendingMessage}">
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+            </FrameLayout>
         </LinearLayout>
     </FrameLayout>
 </layout>

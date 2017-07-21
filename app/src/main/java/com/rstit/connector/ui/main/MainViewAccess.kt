@@ -18,4 +18,6 @@ interface MainViewAccess {
     fun closeKeyboard()
 
     fun displaySuccessSnackbar()
+
+    fun displayErrorMessage()
 }
