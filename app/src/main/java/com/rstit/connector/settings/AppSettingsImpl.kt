@@ -12,6 +12,7 @@ const val SETTINGS_TOKEN = "api_token"
 const val SETTINGS_USER_NAME = "user_name"
 const val SETTINGS_USER_EMAIL = "user_email"
 const val SETTINGS_USER_AVATAR = "user_avatar"
+const val SETTINGS_USER_STATUS = "user_status"
 
 
 class AppSettingsImpl(context: Context) : AppSettings {
@@ -55,4 +56,8 @@ class AppSettingsImpl(context: Context) : AppSettings {
     override var userAvatar: String?
         get() = loadFromSettings(SETTINGS_USER_AVATAR)
         set(value) = value.let { saveToSettings(SETTINGS_USER_AVATAR, it!!) }
+
+    override var userStatus: String?
+        get() = loadFromSettings(SETTINGS_USER_STATUS)
+        set(value) = value.let { saveToSettings(SETTINGS_USER_STATUS, it!!) }
 }

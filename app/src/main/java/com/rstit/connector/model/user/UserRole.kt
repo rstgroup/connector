@@ -6,14 +6,14 @@ package com.rstit.connector.model.user
  */
 
 enum class UserRole(val role: String) {
-    DEVELOPER("developer"),
-    ADMIN("admin");
+    Developer("developer"),
+    Admin("admin");
 
     companion object {
         fun from(role: String?): UserRole = try {
-            UserRole.valueOf(role ?: "")
+            UserRole.valueOf(role?.toLowerCase() ?: "")
         } catch (e: IllegalArgumentException) {
-            UserRole.DEVELOPER
+            UserRole.Developer
         }
     }
 }

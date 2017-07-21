@@ -13,6 +13,8 @@ interface AppSettings {
 
     var userAvatar: String?
 
+    var userStatus: String?
+
     fun isUserLogged(): Boolean
 
     fun logOut()

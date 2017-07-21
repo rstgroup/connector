@@ -44,6 +44,7 @@ class CustomLoginViewModel @Inject constructor() : LoginViewModel() {
             appSettings.userAvatar = it.avatar
             appSettings.userEmail = it.email
             appSettings.userName = String.format(Locale.getDefault(), "%s %s", it.name, it.lastName)
+            appSettings.userStatus = it.getUserRole().role
         }
         viewAccess.navigateToMain()
     }
