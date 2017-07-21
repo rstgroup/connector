@@ -39,16 +39,21 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
 
     fun showMessage() = isMessageVisible.set(true)
 
-    fun loadData() {
-        val model1 = MainRowViewModel("Tomasz Trybała", "English and English-like: Latin (except Vietnamese), Greek, and Cyrillic scripts, supported by both Roboto and Noto. Roboto has been extended to completely cover all Latin, Greek, and Cyrillic characters as defined in Unicode 7.0. The number of supported characters has doubled from previous releases, from about 2000 to about 4000 characters.",
-                "https://storage.googleapis.com/material-design/publish/material_v_11/assets/0B7WCemMG6e0VcDd2YmVFbDhCZHc/style_typography.png")
-        val list = arrayListOf<RowViewModel>(model1, model1, model1)
+    fun refresh() = loadData(0, 25, true)
 
-        registerDisposable(Observable.fromIterable(list)
+    fun loadData(page: Int, perPage: Int, clear: Boolean) {
+        registerDisposable(api.getInbox(page, perPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe({ loading.set(true) })
+                .doOnSubscribe({
+                    loading.set(true)
+                    if (clear) viewAccess.clearScrollListener()
+                })
                 .doOnTerminate({ loading.set(false) })
+                .doOnNext({ it -> viewAccess.setScrollListenerEnabled(it.isLastPage) })
+                .map { it -> it.entries ?: Collections.emptyList() }
+                .flatMap { it -> Observable.fromIterable(it) }
+                .map { it -> MainRowViewModel(it) }
                 .toList()
                 .subscribe({ models -> handleModels(models, true) }, { handleError() }))
     }

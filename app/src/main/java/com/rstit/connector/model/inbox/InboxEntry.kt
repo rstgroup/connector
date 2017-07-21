@@ -13,7 +13,7 @@ import paperparcel.PaperParcelable
 @PaperParcel
 data class InboxEntry(
         @SerializedName("user")
-        val name: User? = null,
+        val user: User? = null,
 
         @SerializedName("last_message")
         val lastMessage: Message? = null

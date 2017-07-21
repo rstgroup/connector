@@ -20,4 +20,8 @@ interface MainViewAccess {
     fun displaySuccessSnackbar()
 
     fun displayErrorMessage()
+
+    fun clearScrollListener()
+
+    fun setScrollListenerEnabled(enabled: Boolean)
 }

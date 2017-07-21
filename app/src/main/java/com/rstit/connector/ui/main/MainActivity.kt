@@ -17,6 +17,7 @@ import com.rstit.connector.ui.base.BaseActivity
 import com.rstit.connector.ui.base.MultiViewAdapter
 import com.rstit.connector.ui.password.ResetPasswordActivity
 import com.rstit.connector.ui.search.UserSearchActivity
+import com.rstit.connector.util.PaginatedScrollListener
 import javax.inject.Inject
 
 
@@ -29,6 +30,12 @@ class MainActivity : BaseActivity(), MainViewAccess {
     lateinit var model: MainViewModel
 
     lateinit var binding: ActivityMainBinding
+
+    val scrollListener = object : PaginatedScrollListener() {
+        override fun fetchData() {
+            model.loadData(1, 25, false)
+        }
+    }
 
     override val adapter: MultiViewAdapter by lazy {
         MultiViewAdapter.Builder(model.models)
@@ -60,7 +67,11 @@ class MainActivity : BaseActivity(), MainViewAccess {
                     .show()
 
 
-    private fun setToolbar() = setSupportActionBar(binding.toolbar)
+    private fun bindViews() {
+        setSupportActionBar(binding.toolbar)
+        binding.refreshLayout.setOnRefreshListener { model.refresh() }
+        binding.recyclerView.addOnScrollListener(scrollListener)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +85,9 @@ class MainActivity : BaseActivity(), MainViewAccess {
         binding.model = model
         binding.viewAccess = this
 
-        setToolbar()
+        bindViews()
 
-        model.loadData()
+        model.refresh()
     }
 
     override fun selectPerson() {
@@ -87,6 +98,12 @@ class MainActivity : BaseActivity(), MainViewAccess {
     override fun writeToAll() {
         binding.fabMenu.collapse()
         model.showMessage()
+    }
+
+    override fun clearScrollListener() = scrollListener.clear()
+
+    override fun setScrollListenerEnabled(enabled: Boolean) {
+        scrollListener.enabled = enabled
     }
 
     override fun closeKeyboard() = hideKeyboard()
