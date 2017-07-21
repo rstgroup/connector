@@ -9,6 +9,9 @@ import android.content.Context
  */
 const val SETTINGS_NAME = "app_settings"
 const val SETTINGS_TOKEN = "api_token"
+const val SETTINGS_USER_NAME = "user_name"
+const val SETTINGS_USER_EMAIL = "user_email"
+const val SETTINGS_USER_AVATAR = "user_avatar"
 
 
 class AppSettingsImpl(context: Context) : AppSettings {
@@ -40,4 +43,16 @@ class AppSettingsImpl(context: Context) : AppSettings {
     override var apiToken: String?
         get() = loadFromSettings(SETTINGS_TOKEN)
         set(value) = value.let { saveToSettings(SETTINGS_TOKEN, it!!) }
+
+    override var userName: String?
+        get() = loadFromSettings(SETTINGS_USER_NAME)
+        set(value) = value.let { saveToSettings(SETTINGS_USER_NAME, it!!) }
+
+    override var userEmail: String?
+        get() = loadFromSettings(SETTINGS_USER_EMAIL)
+        set(value) = value.let { saveToSettings(SETTINGS_USER_EMAIL, it!!) }
+
+    override var userAvatar: String?
+        get() = loadFromSettings(SETTINGS_USER_AVATAR)
+        set(value) = value.let { saveToSettings(SETTINGS_USER_AVATAR, it!!) }
 }

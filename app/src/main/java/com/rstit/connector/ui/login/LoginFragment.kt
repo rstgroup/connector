@@ -45,11 +45,12 @@ class LoginFragment : BaseFragment(), CustomLoginViewAccess {
 
     override fun getPasswordErrorMessage(): String = getString(R.string.error_password)
 
-    override fun navigateToMain() =
-            activity.let {
-                startActivity(Intent(it, MainActivity::class.java))
-                it.finish()
-            }
+    override fun navigateToMain() {
+        activity?.let {
+            startActivity(Intent(it, MainActivity::class.java))
+            it.finish()
+        }
+    }
 
     override fun displayError() = showSnackbar(binding.root, R.string.error_sign_in)
 
