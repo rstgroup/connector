@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion sdk.compile
@@ -10,28 +11,30 @@ android {
         enabled = true
     }
 
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-
     defaultConfig {
         applicationId "${app.baseId}"
         minSdkVersion sdk.min
         targetSdkVersion sdk.target
-        versionCode 100
-        versionName "1.0.0"
+        versionCode 1
+        versionName "0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
 
     buildTypes {
-        debug{
+        debug {
+            buildConfigField "String", 'API_URL', app.apiUrl
         }
 
         release {
+            buildConfigField "String", 'API_URL', app.apiUrl
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
     }
 }
 
@@ -55,6 +58,8 @@ dependencies {
 
     implementation joda.time
 
+    implementation rst.androidBase
+
     implementation google.guava
     implementation google.fcmCore
     implementation google.fcmMessaging
@@ -63,19 +68,22 @@ dependencies {
     implementation rx.android
     implementation rx.retrofitAdapter
 
-    implementation database.requery
-    implementation database.requeryAndroid
-    annotationProcessor database.requeryProcessor
+    implementation dagger.di
+    implementation dagger.diSupport
+    kapt dagger.compiler
+    kapt dagger.processor
+
+    kapt support.dataBinding
 
     debugImplementation squareup.leakCanaryDebug
     releaseImplementation squareup.leakCanaryRelease
 
+    kaptTest dagger.compiler
+
+    testImplementation rx.java
+    testImplementation rx.android
     testImplementation squareup.leakCanaryTest
     testImplementation test.junit
-
-    androidTestImplementation test.dexmakerMockito
-    androidTestImplementation test.dexmaker
-    androidTestImplementation test.mockitoCore
 }
 
 apply plugin: 'com.google.gms.google-services'

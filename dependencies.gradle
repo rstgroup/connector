@@ -16,6 +16,8 @@ ext {
     dexmaker = '1.2'
     mockitoCore = '2.0.7-beta'
     requeryVersion = '1.1.2'
+    rstAndroidBaseVersion = '1.0.2'
+    daggerVersion = '2.11'
 
     support = [
             design:                     "com.android.support:design:${supportLibraryVersion}",
@@ -24,7 +26,8 @@ ext {
             appCompat:                  "com.android.support:appcompat-v7:${supportLibraryVersion}",
             appCompatV4:                "com.android.support:support-v4:${supportLibraryVersion}",
             appCompatV13:               "com.android.support:support-v13:${supportLibraryVersion}",
-            annotation:                 "com.android.support:support-annotations:${supportLibraryVersion}"
+            annotation:                 "com.android.support:support-annotations:${supportLibraryVersion}",
+            dataBinding:                "com.android.databinding:compiler:$android_plugin_version"
     ]
 
     squareup = [
@@ -76,5 +79,16 @@ ext {
 
     kotlinBase = [
             sdk:                         "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlin_version}"
+    ]
+
+    rst = [
+            androidBase:                 "com.rst-it:android-base:${rstAndroidBaseVersion}"
+    ]
+
+    dagger = [
+            compiler:                    "com.google.dagger:dagger-compiler:${daggerVersion}",
+            processor:                   "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            di      :                    "com.google.dagger:dagger:${daggerVersion}",
+            diSupport :                  "com.google.dagger:dagger-android-support:${daggerVersion}",
     ]
 }
