@@ -1,10 +1,15 @@
 package com.rstit.connector.ui.password
 
+import android.databinding.ObservableBoolean
 import com.rstit.binding.ObservableString
+import com.rstit.connector.model.password.ChangePasswordBody
+import com.rstit.connector.net.ConnectorApi
 import com.rstit.di.names.NonEmptyValidatorName
 import com.rstit.di.names.PasswordValidatorName
 import com.rstit.ui.base.model.BaseViewModel
 import com.rstit.validation.Validator
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -16,6 +21,7 @@ class ResetPasswordViewModel @Inject constructor() : BaseViewModel() {
     val newPassword = ObservableString()
     val confirmPassword = ObservableString()
     val error = ObservableString()
+    val loading = ObservableBoolean()
 
     @Inject
     lateinit var viewAccess: ResetPasswordViewAccess
@@ -26,10 +32,20 @@ class ResetPasswordViewModel @Inject constructor() : BaseViewModel() {
     @field:[Inject NonEmptyValidatorName]
     lateinit var nonEmptyValidator: Validator
 
-    fun sendRequest() {
-        viewAccess.closeKeyboard()
-        //todo implement
-    }
+    @Inject
+    lateinit var api: ConnectorApi
+
+    fun sendRequest() =
+            registerDisposable(api.changePassword(ChangePasswordBody(oldPassword.get(), newPassword.get()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe({
+                        error.set(null)
+                        loading.set(true)
+                        viewAccess.closeKeyboard()
+                    })
+                    .doOnTerminate({ loading.set(false) })
+                    .subscribe({ viewAccess.displaySuccess() }, { viewAccess.displayOldPasswordError() }))
 
     fun validate() {
         error.set(null)

@@ -16,4 +16,6 @@ interface ResetPasswordViewAccess {
     fun getConfirmPasswordError(): String
 
     fun backToMain()
+
+    fun displaySuccess()
 }

@@ -2,6 +2,7 @@ package com.rstit.connector.ui.password
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.MenuItem
 import com.rstit.connector.ConnectorApplication
 import com.rstit.connector.R
@@ -61,4 +62,13 @@ class ResetPasswordActivity : BaseActivity(), ResetPasswordViewAccess {
     override fun displayOldPasswordError() = showSnackbar(binding.root, R.string.reset_password_old_invalid)
 
     override fun backToMain() = finish()
+
+    override fun displaySuccess() =
+            AlertDialog.Builder(this)
+                    .setTitle(R.string.reset_password_success_title)
+                    .setMessage(R.string.reset_password_success_message)
+                    .setPositiveButton(R.string.reset_password_success_button, { _, _ -> backToMain() })
+                    .setCancelable(false)
+                    .create()
+                    .show()
 }
