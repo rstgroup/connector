@@ -31,7 +31,7 @@ interface ConnectorApi {
     fun changePassword(@Body body: ChangePasswordBody): Observable<Response<Void>>
 
     @GET("messages/inbox")
-    fun getInbox(@Query(QUERY_OFFSET) page: Int, @Query(QUERY_SIZE) perPage: Int = DEFAULT_PER_PAGE): Observable<InboxResponse>
+    fun getInbox(@Query(QUERY_OFFSET) offset: Int, @Query(QUERY_SIZE) size: Int = DEFAULT_PER_PAGE): Observable<InboxResponse>
 
     @POST("messages/to_all")
     fun sendMessageToAll(@Body body: MessageToAllBody): Observable<Response<Void>>

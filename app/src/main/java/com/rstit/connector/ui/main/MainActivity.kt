@@ -33,7 +33,7 @@ class MainActivity : BaseActivity(), MainViewAccess {
 
     val scrollListener = object : PaginatedScrollListener() {
         override fun fetchData() {
-            model.loadData(1, 25, false)
+            model.loadData(clear = false)
         }
     }
 
@@ -87,6 +87,7 @@ class MainActivity : BaseActivity(), MainViewAccess {
 
         bindViews()
 
+        model.checkChatAvailability()
         model.refresh()
     }
 

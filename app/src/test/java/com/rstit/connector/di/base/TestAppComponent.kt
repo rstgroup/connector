@@ -4,6 +4,8 @@ import com.rstit.connector.di.auth.TestAuthComponent
 import com.rstit.connector.di.auth.TestAuthModule
 import com.rstit.connector.di.login.TestCustomLoginComponent
 import com.rstit.connector.di.login.TestCustomLoginModule
+import com.rstit.connector.di.main.TestMainComponent
+import com.rstit.connector.di.main.TestMainModule
 import com.rstit.connector.di.password.TestResetPasswordComponent
 import com.rstit.connector.di.password.TestResetPasswordModule
 import com.rstit.connector.di.search.TestUserSearchComponent
@@ -28,5 +30,7 @@ interface TestAppComponent {
     fun plus(module: TestResetPasswordModule): TestResetPasswordComponent
 
     fun plus(module: TestUserSearchModule): TestUserSearchComponent
+
+    fun plus(module: TestMainModule): TestMainComponent
 }
 

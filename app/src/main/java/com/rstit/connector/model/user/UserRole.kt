@@ -10,10 +10,14 @@ enum class UserRole(val role: String) {
     Admin("admin");
 
     companion object {
-        fun from(role: String?): UserRole = try {
-            UserRole.valueOf(role?.toLowerCase() ?: "")
-        } catch (e: IllegalArgumentException) {
-            UserRole.Developer
+        fun from(role: String?): UserRole {
+            for (enumRole in UserRole.values()) {
+                if (enumRole.role.toLowerCase() == role?.toLowerCase() ?: "") {
+                    return enumRole
+                }
+            }
+
+            return UserRole.Developer
         }
     }
 }

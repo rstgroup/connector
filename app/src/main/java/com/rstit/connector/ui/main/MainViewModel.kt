@@ -3,7 +3,9 @@ package com.rstit.connector.ui.main
 import android.databinding.ObservableBoolean
 import com.rstit.binding.ObservableString
 import com.rstit.connector.model.password.MessageToAllBody
+import com.rstit.connector.model.user.UserRole
 import com.rstit.connector.net.ConnectorApi
+import com.rstit.connector.settings.AppSettings
 import com.rstit.connector.ui.base.RowViewModel
 import com.rstit.ui.base.model.BaseViewModel
 import io.reactivex.Observable
@@ -20,7 +22,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     val loading: ObservableBoolean = ObservableBoolean()
     val isEmpty: ObservableBoolean = ObservableBoolean()
     val isSendingMessage: ObservableBoolean = ObservableBoolean()
-    val isChatAvailable: ObservableBoolean = ObservableBoolean(true)
+    val isChatAvailable: ObservableBoolean = ObservableBoolean()
     val isMessageVisible: ObservableBoolean = ObservableBoolean()
     val messageToAll = ObservableString()
     val models: MutableList<RowViewModel> = ArrayList()
@@ -31,18 +33,24 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     @Inject
     lateinit var api: ConnectorApi
 
+    @Inject
+    lateinit var appSettings: AppSettings
+
     fun hideMessage() {
         isMessageVisible.set(false)
         messageToAll.set("")
         viewAccess.closeKeyboard()
     }
 
+    fun checkChatAvailability() =
+            isChatAvailable.set(UserRole.from(appSettings.userStatus) == UserRole.Admin)
+
     fun showMessage() = isMessageVisible.set(true)
 
-    fun refresh() = loadData(0, 25, true)
+    fun refresh() = loadData(0, true)
 
-    fun loadData(page: Int, perPage: Int, clear: Boolean) {
-        registerDisposable(api.getInbox(page, perPage)
+    fun loadData(offset: Int = models.size, clear: Boolean) {
+        registerDisposable(api.getInbox(offset)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe({
@@ -65,9 +73,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         viewAccess.notifyDataSetChanged()
     }
 
-    fun handleError() {
-        isEmpty.set(models.isEmpty())
-    }
+    fun handleError() = isEmpty.set(models.isEmpty())
 
     fun sendMessageToAll() {
         registerDisposable(api.sendMessageToAll(
