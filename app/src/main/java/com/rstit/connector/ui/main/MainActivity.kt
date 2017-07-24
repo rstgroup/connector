@@ -15,6 +15,7 @@ import com.rstit.connector.di.main.MainModule
 import com.rstit.connector.ui.auth.AuthActivity
 import com.rstit.connector.ui.base.BaseActivity
 import com.rstit.connector.ui.base.MultiViewAdapter
+import com.rstit.connector.ui.chat.ChatActivity
 import com.rstit.connector.ui.password.ResetPasswordActivity
 import com.rstit.connector.ui.search.UserSearchActivity
 import com.rstit.connector.util.PaginatedScrollListener
@@ -46,9 +47,8 @@ class MainActivity : BaseActivity(), MainViewAccess {
     private fun setChatListener(model: MainRowViewModel, binding: ViewDataBinding) =
             binding.root.setOnClickListener({ navigateToChat(model) })
 
-    private fun navigateToChat(model: MainRowViewModel) {
-        //todo navigate to chat
-    }
+    private fun navigateToChat(model: MainRowViewModel) =
+            model.entry.user?.let { startActivity(ChatActivity.createIntent(this, it)) }
 
     private fun navigateToChangePassword() = startActivity(Intent(this, ResetPasswordActivity::class.java))
 

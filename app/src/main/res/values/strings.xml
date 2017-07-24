@@ -20,7 +20,9 @@
     <string name="ct_icon_logo">icon_logo</string>
     <string name="ct_icon_microphone">icon_microphone</string>
     <string name="ct_icon_send">icon_send</string>
+
     <string name="empty_inbox_text">Your inbox is empty.\nWait for messages sent by HR department.</string>
+    <string name="empty_chat_text">Cannot fetch the conversation.\nPlease check your internet connection.</string>
 
     <string name="sign_out_label">Sign out</string>
     <string name="change_password_label">Change password</string>
@@ -48,4 +50,5 @@
     <string name="message_to_all_error">Something went wrong. Please try again.</string>
 
     <string name="user_search_empty">No users found.\nPlease try using other words.</string>
+    <string name="chat_hint_input_text">Input text...</string>
 </resources>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.google.common.base.Strings"/>
+
+        <variable
+            name="viewAccess"
+            type="com.rstit.connector.ui.chat.ChatViewAccess"/>
+
+        <variable
+            name="model"
+            type="com.rstit.connector.ui.chat.ChatViewModel"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:fitsSystemWindows="true"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingBottom="@dimen/padding_default"
+                    android:paddingTop="@dimen/padding_default"
+                    app:adapter="@{viewAccess.adapter}"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:reverseLayout="true"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_xlarge"
+                    app:visibleIf="@{model.isEmpty}"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_default"
+                        android:contentDescription="@string/ct_icon_logo"
+                        android:src="@drawable/ic_chat_bubble_white_24dp"
+                        android:tint="@android:color/darker_gray"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingEnd="@dimen/padding_default"
+                        android:paddingStart="@dimen/padding_default"
+                        android:text="@string/empty_chat_text"
+                        android:textColor="@android:color/darker_gray"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="@dimen/padding_large">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edtSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="start|center_vertical"
+                        android:hint="@string/chat_hint_input_text"
+                        android:imeOptions="actionSend"
+                        android:inputType="textCapSentences"
+                        android:paddingStart="@dimen/padding_large"
+                        android:text="@={model.content}"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@color/colorHint"
+                        android:textCursorDrawable="@null"
+                        tools:ignore="LabelFor,RtlSymmetry"/>
+
+                    <ImageView
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/ct_icon_send"
+                        android:onClick="@{() -> model.sendMessage()}"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_send_white_24dp"
+                        app:alpha="@{!Strings.isNullOrEmpty(model.content) &amp;&amp; model.isConnected ? 1f : 0.5f}"
+                        app:enabled="@{!Strings.isNullOrEmpty(model.content) &amp;&amp; model.isConnected}"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

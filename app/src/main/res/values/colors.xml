@@ -9,4 +9,5 @@
     <color name="menuLabel">#88000000</color>
     <color name="backgroundLight">#fafafa</color>
     <color name="backgroundProgress">#33000000</color>
+    <color name="colorHint">#88ffffff</color>
 </resources>
