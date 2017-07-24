@@ -1,9 +1,12 @@
 package com.rstit.connector
 
 import com.rstit.connector.model.auth.SignInResponse
+import com.rstit.connector.model.password.ChangePasswordBody
 import com.rstit.connector.model.user.User
+import okhttp3.ResponseBody
 import org.junit.Rule
 import org.mockito.Mockito
+import retrofit2.Response
 
 /**
  * @author Tomasz Trybala
@@ -20,10 +23,19 @@ open class BaseTest {
     val signInResponse: SignInResponse =
             SignInResponse("token", user)
 
+    val changePasswordBody: ChangePasswordBody =
+            ChangePasswordBody("oldPass", "newPass")
+
+    fun response(success: Boolean): Response<Void> =
+            if (success) {
+                Response.success(null)
+            } else {
+                Response.error<Void>(400, Mockito.mock(ResponseBody::class.java))
+            }
+
     fun <T> any(): T {
         Mockito.any<T>()
         return uninitialized()
-
     }
 
     @Suppress("UNCHECKED_CAST")
