@@ -1,6 +1,7 @@
 package com.rstit.connector.ui.main
 
 import android.databinding.ObservableBoolean
+import com.rstit.connector.di.base.scope.ActivityScope
 import com.rstit.connector.net.ConnectorApi
 import com.rstit.connector.ui.base.RowViewModel
 import com.rstit.ui.base.model.BaseViewModel
@@ -14,6 +15,7 @@ import javax.inject.Inject
  * @author Tomasz Trybala
  * @since 2017-07-18
  */
+@ActivityScope
 class MainViewModel @Inject constructor() : BaseViewModel() {
     val loading: ObservableBoolean = ObservableBoolean()
     val isEmpty: ObservableBoolean = ObservableBoolean()
@@ -34,8 +36,8 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         registerDisposable(Observable.fromIterable(list)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe({loading.set(true)})
-                .doOnTerminate({loading.set(false)})
+                .doOnSubscribe { loading.set(true) }
+                .doOnTerminate { loading.set(false) }
                 .toList()
                 .subscribe({ models -> handleModels(models, true) }, { handleError() }))
     }

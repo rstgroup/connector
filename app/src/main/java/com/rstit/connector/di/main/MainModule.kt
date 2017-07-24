@@ -14,13 +14,10 @@ import dagger.Provides
 class MainModule(private val activity: MainActivity) {
     @Provides
     @ActivityScope
-    fun provideMainActivity(): MainActivity {
-        return activity
-    }
+    fun provideMainActivity(): MainActivity = activity
 
     @Provides
     @ActivityScope
-    fun provideMainActivityAccess(activity: MainActivity): MainViewAccess {
-        return activity
-    }
+    fun provideMainActivityAccess(activity: MainActivity): MainViewAccess = activity
+
 }
