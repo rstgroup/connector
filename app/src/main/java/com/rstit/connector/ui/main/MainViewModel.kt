@@ -1,8 +1,8 @@
 package com.rstit.connector.ui.main
 
 import android.databinding.ObservableBoolean
-import com.rstit.connector.di.base.scope.ActivityScope
 import com.rstit.binding.ObservableString
+import com.rstit.connector.di.base.scope.ActivityScope
 import com.rstit.connector.model.password.MessageToAllBody
 import com.rstit.connector.model.user.UserRole
 import com.rstit.connector.net.ConnectorApi
@@ -55,12 +55,12 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         registerDisposable(api.getInbox(offset)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe({
+                .doOnSubscribe {
                     loading.set(true)
                     if (clear) viewAccess.clearScrollListener()
-                })
-                .doOnTerminate({ loading.set(false) })
-                .doOnNext({ it -> viewAccess.setScrollListenerEnabled(it.isLastPage) })
+                }
+                .doOnTerminate { loading.set(false) }
+                .doOnNext { it -> viewAccess.setScrollListenerEnabled(it.isLastPage) }
                 .map { it -> it.entries ?: Collections.emptyList() }
                 .flatMap { it -> Observable.fromIterable(it) }
                 .map { it -> MainRowViewModel(it) }
