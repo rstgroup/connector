@@ -19,8 +19,8 @@ import retrofit2.http.Query
  */
 const val DEFAULT_PER_PAGE: Int = 25
 const val FIRST_PAGE: Int = 0
-const val QUERY_PAGE: String = "page"
-const val QUERY_PER_PAGE: String = "per_page"
+const val QUERY_OFFSET: String = "offset"
+const val QUERY_SIZE: String = "size"
 const val QUERY_SEARCH: String = "name"
 
 interface ConnectorApi {
@@ -31,11 +31,11 @@ interface ConnectorApi {
     fun changePassword(@Body body: ChangePasswordBody): Observable<Response<Void>>
 
     @GET("messages/inbox")
-    fun getInbox(@Query(QUERY_PAGE) page: Int, @Query(QUERY_PER_PAGE) perPage: Int = DEFAULT_PER_PAGE): Observable<InboxResponse>
+    fun getInbox(@Query(QUERY_OFFSET) page: Int, @Query(QUERY_SIZE) perPage: Int = DEFAULT_PER_PAGE): Observable<InboxResponse>
 
     @POST("messages/to_all")
     fun sendMessageToAll(@Body body: MessageToAllBody): Observable<Response<Void>>
 
     @GET("users/")
-    fun searchUsers(@Query(QUERY_PAGE) page: Int = FIRST_PAGE, @Query(QUERY_SEARCH) name: String): Observable<Collection<User>>
+    fun searchUsers(@Query(QUERY_OFFSET) page: Int = FIRST_PAGE, @Query(QUERY_SEARCH) name: String): Observable<Collection<User>>
 }

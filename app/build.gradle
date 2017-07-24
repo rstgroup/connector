@@ -95,6 +95,8 @@ dependencies {
     testImplementation rx.android
     testImplementation squareup.leakCanaryTest
     testImplementation test.junit
+    testImplementation test.mockitoCore
+    testImplementation dagger.di
 }
 
 apply plugin: 'com.google.gms.google-services'
