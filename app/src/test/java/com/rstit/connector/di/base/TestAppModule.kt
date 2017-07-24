@@ -11,6 +11,6 @@ import org.mockito.Mockito
  */
 @Module
 class TestAppModule {
-//    @Provides
-//    fun provideResources(): Resources = Mockito.mock(Resources::class.java)
+    @Provides
+    fun provideResources(): Resources = Mockito.mock(Resources::class.java)
 }
