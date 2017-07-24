@@ -1,6 +1,7 @@
 package com.rstit.connector.ui.main
 
 import android.databinding.ObservableBoolean
+import com.rstit.connector.di.base.scope.ActivityScope
 import com.rstit.binding.ObservableString
 import com.rstit.connector.model.password.MessageToAllBody
 import com.rstit.connector.model.user.UserRole
@@ -18,6 +19,7 @@ import javax.inject.Inject
  * @author Tomasz Trybala
  * @since 2017-07-18
  */
+@ActivityScope
 class MainViewModel @Inject constructor() : BaseViewModel() {
     val loading: ObservableBoolean = ObservableBoolean()
     val isEmpty: ObservableBoolean = ObservableBoolean()
