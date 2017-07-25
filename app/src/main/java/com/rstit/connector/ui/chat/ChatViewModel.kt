@@ -2,7 +2,9 @@ package com.rstit.connector.ui.chat
 
 import android.databinding.ObservableBoolean
 import com.rstit.binding.ObservableString
+import com.rstit.connector.date.DateConverter
 import com.rstit.connector.di.base.scope.ActivityScope
+import com.rstit.connector.di.date.names.ChatConverter
 import com.rstit.connector.model.inbox.Message
 import com.rstit.connector.model.user.User
 import com.rstit.connector.net.ConnectorApi
@@ -29,6 +31,9 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
     @Inject
     lateinit var viewAccess: ChatViewAccess
 
+    @field:[Inject ChatConverter]
+    lateinit var chatDateConverter: DateConverter
+
     @Inject
     lateinit var api: ConnectorApi
 
@@ -43,16 +48,16 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
                 .flatMap { list -> Observable.fromIterable(list) }
                 .map { entry ->
                     if (entry.isMyMessage ?: false)
-                        ChatMyMessageRowViewModel(entry)
+                        ChatMyMessageRowViewModel(entry, chatDateConverter)
                     else
-                        ChatOtherMessageRowViewModel(entry, otherUser.avatar)
+                        ChatOtherMessageRowViewModel(entry, otherUser.avatar, chatDateConverter)
                 }
                 .toList()
                 .subscribe({ list -> handleResponse(list, true) }, { handleError() }))
     }
 
     fun sendMessage() {
-        models.add(0, ChatMyMessageRowViewModel(Message(content = content.get(), createdAt = Date(), isMyMessage = true)))
+        models.add(0, ChatMyMessageRowViewModel(Message(content = content.get(), createdAt = Date(), isMyMessage = true), chatDateConverter))
         content.set("")
         isEmpty.set(false)
         viewAccess.notifyDataRangeChanged(0, 1)

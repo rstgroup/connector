@@ -28,15 +28,29 @@
             app:circleImage="@{model.avatar}"
             tools:src="@drawable/ic_account_circle_grey"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_chat_other"
-            android:gravity="center_vertical"
-            android:minHeight="@dimen/chat_avatar_size"
-            android:textSize="@dimen/font_large"
-            android:text="@{model.content}"
-            android:textColor="@android:color/black"
-            tools:text="Three line imtem"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chat_other"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/chat_avatar_size"
+                android:textSize="@dimen/font_large"
+                android:text="@{model.content}"
+                android:textColor="@android:color/black"
+                tools:text="Three line imtem"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.time}"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/font_xsmall"
+                tools:text="16:23"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>

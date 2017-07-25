@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:gravity="end"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/padding_small"
         android:paddingEnd="@dimen/padding_default"
         android:paddingStart="@dimen/padding_xxxlarge"
@@ -27,8 +27,16 @@
             android:gravity="center_vertical"
             android:minHeight="@dimen/chat_avatar_size"
             android:text="@{model.content}"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/font_large"
             tools:text="Text message"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.time}"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/font_xsmall"
+            tools:text="16:23"/>
     </LinearLayout>
 </layout>

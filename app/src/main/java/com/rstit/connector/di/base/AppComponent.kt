@@ -5,6 +5,7 @@ import com.rstit.connector.di.auth.AuthComponent
 import com.rstit.connector.di.auth.AuthModule
 import com.rstit.connector.di.chat.ChatComponent
 import com.rstit.connector.di.chat.ChatModule
+import com.rstit.connector.di.date.DateModule
 import com.rstit.connector.di.login.LoginComponent
 import com.rstit.connector.di.login.LoginModule
 import com.rstit.connector.di.main.MainComponent
@@ -22,7 +23,8 @@ import javax.inject.Singleton
  * @since 2017-07-17
  */
 @Singleton
-@Component(modules = arrayOf(AppModule::class, ValidationModule::class, AppSettingsModule::class, NetModule::class))
+@Component(modules = arrayOf(AppModule::class, ValidationModule::class, AppSettingsModule::class, NetModule::class,
+        DateModule::class))
 interface AppComponent {
     fun inject(app: Application)
 

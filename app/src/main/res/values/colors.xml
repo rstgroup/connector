@@ -11,6 +11,6 @@
     <color name="backgroundProgress">#33000000</color>
     <color name="colorHint">#88ffffff</color>
 
-    <color name="chatMyMessageBg">#20f15921</color>
+    <color name="chatMyMessageBg">#96f15921</color>
     <color name="chatBg">#f1f1f1</color>
 </resources>
