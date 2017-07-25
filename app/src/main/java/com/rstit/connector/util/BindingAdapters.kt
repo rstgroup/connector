@@ -18,6 +18,11 @@ fun changeVisibility(view: View?, visible: Boolean) {
     view?.let { it.visibility = if (visible) View.VISIBLE else View.GONE }
 }
 
+@BindingAdapter("invisibleIf")
+fun changeInvisibility(view: View?, visible: Boolean) {
+    view?.let { it.visibility = if (visible) View.INVISIBLE else View.VISIBLE }
+}
+
 @BindingAdapter("circleImage")
 fun loadCircleImage(view: ImageView?, avatar: String?) {
     view?.let {

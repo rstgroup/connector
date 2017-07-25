@@ -83,7 +83,10 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
 
     override fun closeKeyboard() = hideKeyboard()
 
-    override fun notifyDataRangeChanged(start: Int, itemCount: Int) = adapter.notifyItemRangeInserted(start, itemCount)
+    override fun notifyDataRangeChanged(start: Int, itemCount: Int) {
+        adapter.notifyItemRangeInserted(start, itemCount)
+        binding.recyclerView.scrollToPosition(start)
+    }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean =
             when (item?.itemId) {

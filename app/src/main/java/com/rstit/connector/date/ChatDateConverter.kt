@@ -9,7 +9,7 @@ import java.util.*
  * @since 2017-07-25
  */
 const val FORMAT_TIME = "HH:mm"
-const val FORMAT_DATE = "dd MMM"
+const val FORMAT_DATE = "dd.MM, HH:mm"
 
 class ChatDateConverter : DateConverter {
     override fun convert(date: Date): String =

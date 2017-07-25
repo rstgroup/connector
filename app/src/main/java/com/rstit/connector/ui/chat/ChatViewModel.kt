@@ -23,7 +23,7 @@ import javax.inject.Inject
 @ActivityScope
 class ChatViewModel @Inject constructor() : BaseViewModel() {
     val isConnected = ObservableBoolean(true)
-    val loading = ObservableBoolean()
+    val loading = ObservableBoolean(true)
     val isEmpty = ObservableBoolean()
     val content = ObservableString()
     val models = ArrayList<RowViewModel>()
@@ -43,6 +43,8 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
         registerDisposable(api.getChatAfterMessage(otherUser.id, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { loading.set(true) }
+                .doOnTerminate { loading.set(false) }
                 .doOnNext { response -> viewAccess.setScrollListenerEnabled(!response.isLastPage) }
                 .map { response -> response.entries ?: Collections.emptyList() }
                 .flatMap { list -> Observable.fromIterable(list) }
