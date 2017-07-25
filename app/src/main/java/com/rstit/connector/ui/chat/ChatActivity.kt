@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.rstit.connector.ConnectorApplication
 import com.rstit.connector.R
@@ -13,6 +14,7 @@ import com.rstit.connector.model.user.User
 import com.rstit.connector.ui.base.BaseActivity
 import com.rstit.connector.ui.base.MultiViewAdapter
 import com.rstit.connector.util.PaginatedScrollListener
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import javax.inject.Inject
 
 /**
@@ -22,17 +24,21 @@ import javax.inject.Inject
 const val EXTRA_USER = "extra_user"
 
 class ChatActivity : BaseActivity(), ChatViewAccess {
+    override fun notifyItemInserted() = adapter.notifyItemInserted(0)
+
     @Inject
     lateinit var model: ChatViewModel
 
     lateinit var binding: ActivityChatBinding
 
-    private fun setToolbar() {
+    private fun bindViews() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             title = "Chat"
             setDisplayHomeAsUpEnabled(true)
         }
+
+        binding.recyclerView.itemAnimator(SlideInUpAnimator())
     }
 
     val scrollListener = object : PaginatedScrollListener() {
@@ -43,6 +49,8 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
 
     override val adapter: MultiViewAdapter by lazy {
         MultiViewAdapter.Builder(model.models)
+                .register(R.layout.row_chat_my_message, ChatMyMessageRowViewModel::class.java)
+                .register(R.layout.row_chat_other_message, ChatOtherMessageRowViewModel::class.java)
                 .build()
     }
 
@@ -58,7 +66,7 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
         binding.model = model
         binding.viewAccess = this
 
-        setToolbar()
+        bindViews()
     }
 
     override fun clearScrollListener() = scrollListener.clear()
@@ -84,4 +92,8 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
         fun createIntent(context: Context, user: User): Intent =
                 Intent(context, ChatActivity::class.java).apply { putExtra(EXTRA_USER, user) }
     }
+}
+
+private operator fun RecyclerView.ItemAnimator.invoke(any: Any) {
+
 }

@@ -9,6 +9,8 @@ import com.rstit.connector.ui.base.MultiViewAdapter
 interface ChatViewAccess {
     fun notifyDataSetChanged()
 
+    fun notifyItemInserted()
+
     fun closeKeyboard()
 
     val adapter: MultiViewAdapter

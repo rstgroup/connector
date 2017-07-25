@@ -55,6 +55,7 @@ dependencies {
     implementation support.cardView
 
     implementation views.fabMenu
+    implementation 'jp.wasabeef:recyclerview-animators:2.2.7'
 
     implementation squareup.retrofit
     implementation squareup.retrofitGson

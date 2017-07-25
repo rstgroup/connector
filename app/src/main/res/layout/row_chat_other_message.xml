@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.rstit.connector.ui.chat.ChatOtherMessageRowViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_small"
+        android:paddingEnd="@dimen/padding_xxxlarge"
+        android:paddingStart="@dimen/padding_default"
+        android:paddingTop="@dimen/padding_small"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="@dimen/chat_avatar_size"
+            android:layout_height="@dimen/chat_avatar_size"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:contentDescription="@string/ct_avatar_icon"
+            app:circleImage="@{model.avatar}"
+            tools:src="@drawable/ic_account_circle_grey"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_chat_other"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/chat_avatar_size"
+            android:textSize="@dimen/font_large"
+            android:text="@{model.content}"
+            android:textColor="@android:color/black"
+            tools:text="Three line imtem"/>
+    </LinearLayout>
+</layout>
