@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.rstit.connector.ConnectorApplication
 import com.rstit.connector.R
@@ -14,7 +13,7 @@ import com.rstit.connector.model.user.User
 import com.rstit.connector.ui.base.BaseActivity
 import com.rstit.connector.ui.base.MultiViewAdapter
 import com.rstit.connector.util.PaginatedScrollListener
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -24,21 +23,25 @@ import javax.inject.Inject
 const val EXTRA_USER = "extra_user"
 
 class ChatActivity : BaseActivity(), ChatViewAccess {
-    override fun notifyItemInserted() = adapter.notifyItemInserted(0)
-
     @Inject
     lateinit var model: ChatViewModel
 
     lateinit var binding: ActivityChatBinding
 
+    lateinit var user: User
+
     private fun bindViews() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
-            title = "Chat"
+            title = String.format(Locale.getDefault(), "%s %s", user.name, user.lastName)
             setDisplayHomeAsUpEnabled(true)
         }
 
-        binding.recyclerView.itemAnimator(SlideInUpAnimator())
+        binding.recyclerView.addOnScrollListener(scrollListener)
+    }
+
+    private fun loadFromIntent() {
+        user = intent.getParcelableExtra(EXTRA_USER)
     }
 
     val scrollListener = object : PaginatedScrollListener() {
@@ -56,6 +59,7 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadFromIntent()
 
         ConnectorApplication.get(this)
                 .appComponent
@@ -67,6 +71,8 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
         binding.viewAccess = this
 
         bindViews()
+        model.otherUser = user
+        model.refresh()
     }
 
     override fun clearScrollListener() = scrollListener.clear()
@@ -77,7 +83,7 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
 
     override fun closeKeyboard() = hideKeyboard()
 
-    override fun notifyDataSetChanged() = adapter.notifyDataSetChanged()
+    override fun notifyDataRangeChanged(start: Int, itemCount: Int) = adapter.notifyItemRangeInserted(start, itemCount)
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean =
             when (item?.itemId) {
@@ -94,6 +100,3 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
     }
 }
 
-private operator fun RecyclerView.ItemAnimator.invoke(any: Any) {
-
-}

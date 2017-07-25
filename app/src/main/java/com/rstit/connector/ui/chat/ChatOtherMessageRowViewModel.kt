@@ -8,7 +8,7 @@ import com.rstit.connector.ui.base.RowViewModel
  * @author Tomasz Trybala
  * @since 2017-07-25
  */
-class ChatOtherMessageRowViewModel(message: Message, avatar: String) : RowViewModel() {
+class ChatOtherMessageRowViewModel(message: Message, avatar: String?) : RowViewModel() {
     val content = ObservableString(message.content)
     val avatar = ObservableString(avatar)
 }

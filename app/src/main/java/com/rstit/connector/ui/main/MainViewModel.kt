@@ -3,7 +3,10 @@ package com.rstit.connector.ui.main
 import android.databinding.ObservableBoolean
 import com.rstit.binding.ObservableString
 import com.rstit.connector.di.base.scope.ActivityScope
+import com.rstit.connector.model.inbox.InboxEntry
+import com.rstit.connector.model.inbox.Message
 import com.rstit.connector.model.password.MessageToAllBody
+import com.rstit.connector.model.user.User
 import com.rstit.connector.model.user.UserRole
 import com.rstit.connector.net.ConnectorApi
 import com.rstit.connector.settings.AppSettings
@@ -45,7 +48,8 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun checkChatAvailability() =
-            isChatAvailable.set(UserRole.from(appSettings.userStatus) == UserRole.Admin)
+            isChatAvailable.set(UserRole.from(appSettings.userStatus) != UserRole.Admin)
+    //todo uncomment !
 
     fun showMessage() = isMessageVisible.set(true)
 
@@ -60,7 +64,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
                     if (clear) viewAccess.clearScrollListener()
                 }
                 .doOnTerminate { loading.set(false) }
-                .doOnNext { it -> viewAccess.setScrollListenerEnabled(it.isLastPage) }
+                .doOnNext { it -> viewAccess.setScrollListenerEnabled(!it.isLastPage) }
                 .map { it -> it.entries ?: Collections.emptyList() }
                 .flatMap { it -> Observable.fromIterable(it) }
                 .map { it -> MainRowViewModel(it) }
@@ -75,7 +79,13 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         viewAccess.notifyDataSetChanged()
     }
 
-    fun handleError() = isEmpty.set(models.isEmpty())
+    fun handleError() {
+        models.add(MainRowViewModel(InboxEntry(User(4, "Krzysztof", "Marszałek", "k.m@rst-it.com", "https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/05b/102/331e441.jpg", "admin"),
+                Message(4, "Witam na pokładzie RST-IT!", "read", Date(), false))))
+        viewAccess.setScrollListenerEnabled(false)
+        viewAccess.notifyDataSetChanged()
+        isEmpty.set(models.isEmpty())
+    }
 
     fun sendMessageToAll() {
         registerDisposable(api.sendMessageToAll(
