@@ -3,4 +3,7 @@
     <color name="colorPrimary">#f15921</color>
     <color name="colorPrimaryDark">#d8501d</color>
     <color name="colorAccent">#7b1fa2</color>
+    <color name="colorAccentDark">#6b1b8d</color>
+
+    <color name="menuLabel">#88000000</color>
 </resources>

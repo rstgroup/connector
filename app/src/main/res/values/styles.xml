@@ -10,4 +10,17 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
+
+    <style name="FabMenuStyle">
+        <item name="fab_colorNormal">@color/colorAccent</item>
+        <item name="fab_colorPressed">@color/colorAccentDark</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fab_size">normal</item>
+    </style>
+
+    <style name="FabMenuLabel">
+        <item name="android:background">@drawable/fab_menu_label_bg</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

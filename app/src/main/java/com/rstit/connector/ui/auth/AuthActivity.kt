@@ -17,6 +17,13 @@ class AuthActivity : BaseActivity(), AuthViewAccess {
     @Inject
     lateinit var model: AuthViewModel
 
+    lateinit var binding: ActivityAuthBinding
+
+    private fun setToolbar() {
+        setSupportActionBar(binding.toolbar)
+        supportActionBar!!.title = getString(R.string.log_in_label)
+    }
+
     override fun showSignIn() {
         supportFragmentManager.
                 beginTransaction()
@@ -29,8 +36,10 @@ class AuthActivity : BaseActivity(), AuthViewAccess {
 
         appComponent.plus(AuthModule(this)).inject(this)
 
-        val binding: ActivityAuthBinding = DataBindingUtil.setContentView(this, R.layout.activity_auth)
+        binding= DataBindingUtil.setContentView(this, R.layout.activity_auth)
         binding.model = model
+
+        setToolbar()
 
         model.initFragment()
     }

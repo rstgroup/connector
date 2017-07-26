@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fab="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewAccess"
+            type="com.rstit.connector.ui.main.MainViewAccess"/>
+
+        <variable
+            name="model"
+            type="com.rstit.connector.ui.main.MainViewModel"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:fitsSystemWindows="true"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_xlarge"
+                app:visibleIf="@{model.isEmpty}">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding_default"
+                    android:contentDescription="@string/ct_empty_inbox"
+                    android:src="@drawable/ic_inbox_black_48dp"
+                    android:tint="@android:color/darker_gray"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:paddingStart="@dimen/padding_default"
+                    android:text="@string/empty_inbox_text"
+                    android:textColor="@android:color/darker_gray"/>
+            </LinearLayout>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:refreshing="@{model.loading}">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    app:adapter="@{viewAccess.adapter}"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </FrameLayout>
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/fabMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            fab:fab_addButtonColorNormal="@color/colorAccent"
+            fab:fab_addButtonColorPressed="@color/colorAccentDark"
+            fab:fab_addButtonPlusIconColor="@android:color/white"
+            fab:fab_addButtonSize="normal"
+            fab:fab_labelStyle="@style/FabMenuLabel"
+            fab:fab_labelsPosition="left"
+            app:visibleIf="@{model.isChatAvailable}">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                style="@style/FabMenuStyle"
+                android:onClick="@{() -> viewAccess.selectPerson()}"
+                fab:fab_icon="@drawable/ic_chat_bubble_white_24dp"
+                fab:fab_title="@string/fab_chat_one"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                style="@style/FabMenuStyle"
+                android:onClick="@{() -> viewAccess.writeToAll()}"
+                fab:fab_icon="@drawable/ic_forum_white_24dp"
+                fab:fab_title="@string/fab_chat_all"/>
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

@@ -8,4 +8,6 @@ interface AppSettings {
     var apiToken: String?
 
     fun isUserLogged(): Boolean
+
+    fun logOut()
 }

@@ -6,4 +6,20 @@
     <string name="button_login">sign in</string>
     <string name="hint_login">Email</string>
     <string name="hint_password">Password</string>
+
+    <string name="log_in_label">Sign in</string>
+    <string name="main_label">Inbox</string>
+
+    <string name="ct_avatar_icon">avatar_icon</string>
+    <string name="ct_empty_inbox">empty_inbox</string>
+    <string name="empty_inbox_text">Your inbox is empty.\nWait for messages sent by HR department.</string>
+
+    <string name="sign_out_label">Sign out</string>
+    <string name="change_password_label">Change password</string>
+
+    <string name="sign_out_message">Are you sure you want to sign out?</string>
+    <string name="sign_out_yes">Yes</string>
+    <string name="sign_out_cancel">Cancel</string>
+    <string name="fab_chat_one">Chat someone</string>
+    <string name="fab_chat_all">Write to all</string>
 </resources>
