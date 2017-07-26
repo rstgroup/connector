@@ -6,6 +6,8 @@ import com.rstit.connector.di.auth.AuthModule
 import com.rstit.connector.di.chat.ChatComponent
 import com.rstit.connector.di.chat.ChatModule
 import com.rstit.connector.di.date.DateModule
+import com.rstit.connector.di.fcm.FcmComponent
+import com.rstit.connector.di.fcm.FcmModule
 import com.rstit.connector.di.login.LoginComponent
 import com.rstit.connector.di.login.LoginModule
 import com.rstit.connector.di.main.MainComponent
@@ -39,4 +41,6 @@ interface AppComponent {
     fun plus(module: UserSearchModule): UserSearchComponent
 
     fun plus(module: ChatModule): ChatComponent
+
+    fun plus(module: FcmModule): FcmComponent
 }
