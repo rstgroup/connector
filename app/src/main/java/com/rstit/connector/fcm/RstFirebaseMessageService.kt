@@ -10,7 +10,6 @@ import android.os.Looper
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
@@ -23,7 +22,6 @@ import com.rstit.connector.di.fcm.FcmModule
 import com.rstit.connector.model.inbox.InboxEntry
 import com.rstit.connector.ui.chat.ChatActivity
 import jp.wasabeef.glide.transformations.CropCircleTransformation
-import org.json.JSONObject
 import javax.inject.Inject
 
 /**
@@ -31,7 +29,7 @@ import javax.inject.Inject
  * @since 2017-07-26
  */
 
-const val KEY_NEW_MESSAGE = "key_new_message"
+const val KEY_NEW_MESSAGE = "entry"
 const val CHANNEL_ID = "RstConnectorChannel"
 const val NOTIFICATION_ID = 982634
 
@@ -50,16 +48,15 @@ class RstFirebaseMessageService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         remoteMessage?.let {
-            when (it.messageType) {
-                KEY_NEW_MESSAGE -> receiveMessage(it)
-                else -> Log.e(RstFirebaseMessageService::class.java.name, "${it.messageType} is not recognized as push type!")
+            it.data[KEY_NEW_MESSAGE]?.let {
+                receiveMessage(it)
             }
         }
     }
 
-    fun receiveMessage(remoteMessage: RemoteMessage) {
+    fun receiveMessage(json: String) {
         try {
-            val entry: InboxEntry = gson.fromJson(JSONObject(remoteMessage.data).toString(), InboxEntry::class.java)
+            val entry: InboxEntry = gson.fromJson(json, InboxEntry::class.java)
             Handler(Looper.getMainLooper()).post({ loadMessageBitmap(entry, getImageSize(this)) })
         } catch (e: Exception) {
             e.printStackTrace()
@@ -103,7 +100,9 @@ class RstFirebaseMessageService : FirebaseMessagingService() {
 
     fun displayMessageNotification(bitmap: Bitmap, inboxEntry: InboxEntry) {
         if (inboxEntry.user != null) {
-            val intent = PendingIntent.getActivity(this, 0, ChatActivity.createIntent(this, inboxEntry.user), 0)
+            val intent = PendingIntent.getActivity(this, 0,
+                    ChatActivity.createIntent(this, inboxEntry.user),
+                    PendingIntent.FLAG_UPDATE_CURRENT)
 
             val builder: NotificationCompat.Builder =
                     NotificationCompat.Builder(this, CHANNEL_ID)
@@ -111,8 +110,8 @@ class RstFirebaseMessageService : FirebaseMessagingService() {
                             .setSmallIcon(R.drawable.ic_notification_logo)
                             .setLargeIcon(bitmap)
                             .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                            .setContentTitle(inboxEntry.lastMessage?.content)
-                            .setContentText("${inboxEntry.user.name} ${inboxEntry.user.lastName}")
+                            .setContentText(inboxEntry.lastMessage?.content)
+                            .setContentTitle("${inboxEntry.user.name} ${inboxEntry.user.lastName}")
                             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                             .setContentIntent(intent)
 

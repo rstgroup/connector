@@ -2,10 +2,12 @@ package com.rstit.connector
 
 import android.app.Application
 import android.content.Context
+import com.crashlytics.android.Crashlytics
 import com.rstit.connector.di.base.AppComponent
 import com.rstit.connector.di.base.AppModule
 import com.rstit.connector.di.base.DaggerAppComponent
 import com.squareup.leakcanary.LeakCanary
+import io.fabric.sdk.android.Fabric
 
 /**
  * @author Tomasz Trybala
@@ -28,6 +30,8 @@ class ConnectorApplication : Application() {
 
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this)
+        } else {
+            Fabric.with(this, Crashlytics())
         }
 
         appComponent.inject(this)

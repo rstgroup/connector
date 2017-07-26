@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion sdk.compile
@@ -97,6 +98,10 @@ dependencies {
     testImplementation test.junit
     testImplementation test.mockitoCore
     testImplementation dagger.di
+
+    compile(fabric.crashlytics) {
+        transitive = true
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'

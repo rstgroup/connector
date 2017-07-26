@@ -5,6 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
 import com.rstit.connector.ConnectorApplication
 import com.rstit.connector.R
 import com.rstit.connector.databinding.ActivityChatBinding
@@ -13,7 +14,6 @@ import com.rstit.connector.model.user.User
 import com.rstit.connector.ui.base.BaseActivity
 import com.rstit.connector.ui.base.MultiViewAdapter
 import com.rstit.connector.util.PaginatedScrollListener
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -33,11 +33,21 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
     private fun bindViews() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
-            title = String.format(Locale.getDefault(), "%s %s", user.name, user.lastName)
+            title = "${user.name} ${user.lastName}"
             setDisplayHomeAsUpEnabled(true)
         }
 
         binding.recyclerView.addOnScrollListener(scrollListener)
+        binding.edtSearch.setOnEditorActionListener({ _, id, _ -> onImeAction(id) })
+    }
+
+    private fun onImeAction(actionId: Int): Boolean {
+        if (!model.content.get().isNullOrEmpty() && model.isConnected.get() && actionId == EditorInfo.IME_ACTION_SEND) {
+            model.sendMessage()
+            return true
+        }
+
+        return false
     }
 
     private fun loadFromIntent() {
