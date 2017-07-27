@@ -1,10 +1,12 @@
 package com.rstit.connector.util
 
 import android.databinding.BindingAdapter
+import android.graphics.Typeface
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.rstit.connector.R
 import jp.wasabeef.glide.transformations.CropCircleTransformation
@@ -55,4 +57,9 @@ fun translateView(view: View?, visible: Boolean) {
         }
         it.startAnimation(anim)
     }
+}
+
+@BindingAdapter("boldIf")
+fun setBoldIf(textView: TextView?, value: Boolean) {
+    textView?.setTypeface(null, if (value) Typeface.BOLD else Typeface.NORMAL)
 }

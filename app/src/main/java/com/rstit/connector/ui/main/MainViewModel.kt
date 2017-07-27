@@ -47,9 +47,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         viewAccess.closeKeyboard()
     }
 
-    fun checkChatAvailability() =
-            isChatAvailable.set(UserRole.from(appSettings.userStatus) != UserRole.Admin)
-    //todo uncomment !
+    fun checkChatAvailability() = isChatAvailable.set(UserRole.from(appSettings.userStatus) == UserRole.Admin)
 
     fun showMessage() = isMessageVisible.set(true)
 
