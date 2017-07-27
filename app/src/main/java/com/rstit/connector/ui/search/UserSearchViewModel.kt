@@ -2,13 +2,13 @@ package com.rstit.connector.ui.search
 
 import android.databinding.ObservableBoolean
 import com.rstit.binding.ObservableString
+import com.rstit.connector.di.base.scope.ActivityScope
 import com.rstit.connector.net.ConnectorApi
 import com.rstit.connector.ui.base.RowViewModel
 import com.rstit.ui.base.model.BaseViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -18,6 +18,7 @@ import javax.inject.Inject
  */
 const val THROTTLE_TIMEOUT = 500L //ms
 
+@ActivityScope
 class UserSearchViewModel @Inject constructor() : BaseViewModel() {
     val loading = ObservableBoolean()
     val isEmpty = ObservableBoolean()
@@ -50,10 +51,11 @@ class UserSearchViewModel @Inject constructor() : BaseViewModel() {
                 .map { it -> UserRowViewModel(it) }
                 .toList()
                 .toObservable()
-                .doOnNext({ it ->
+                .doOnNext { it ->
                     models.clear()
                     models.addAll(it)
-                }).subscribe({ handleResponse(true, currentSize) }, { handleResponse(false, currentSize) }))
+                }
+                .subscribe({ handleResponse(true, currentSize) }, { handleResponse(false, currentSize) }))
     }
 
     fun handleResponse(isSuccess: Boolean, previousSize: Int) {

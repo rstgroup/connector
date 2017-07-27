@@ -51,11 +51,11 @@ class ResetPasswordActivity : BaseActivity(), ResetPasswordViewAccess {
             }
 
 
-    override fun getNewPasswordError(): String = getString(R.string.reset_password_new_invalid)
+    override val getNewPasswordError: String = getString(R.string.reset_password_new_invalid)
 
-    override fun getConfirmPasswordError(): String = getString(R.string.reset_password_confirm_invalid)
+    override val getConfirmPasswordError: String = getString(R.string.reset_password_confirm_invalid)
 
-    override fun getEmptyOldPasswordError(): String = getString(R.string.reset_password_old_invalid_empty)
+    override val getEmptyOldPasswordError: String = getString(R.string.reset_password_old_invalid_empty)
 
     override fun closeKeyboard() = hideKeyboard()
 

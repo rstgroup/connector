@@ -4,7 +4,7 @@ import com.rstit.binding.ObservableString
 import com.rstit.connector.date.DateConverter
 import com.rstit.connector.model.inbox.Message
 import com.rstit.connector.ui.base.RowViewModel
-import java.util.*
+import java.util.Date
 
 /**
  * @author Tomasz Trybala

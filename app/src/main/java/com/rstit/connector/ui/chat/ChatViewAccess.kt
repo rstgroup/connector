@@ -7,7 +7,7 @@ import com.rstit.connector.ui.base.MultiViewAdapter
  * @since 2017-07-24
  */
 interface ChatViewAccess {
-    fun notifyDataRangeChanged(start: Int, itemCount: Int)
+    fun notifyItemRangeInserted(start: Int, itemCount: Int)
 
     fun closeKeyboard()
 

@@ -41,14 +41,16 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
         binding.edtSearch.setOnEditorActionListener({ _, id, _ -> onImeAction(id) })
     }
 
-    private fun onImeAction(actionId: Int): Boolean {
-        if (!model.content.get().isNullOrEmpty() && model.isConnected.get() && actionId == EditorInfo.IME_ACTION_SEND) {
-            model.sendMessage()
-            return true
-        }
-
-        return false
-    }
+    private fun onImeAction(actionId: Int): Boolean =
+            when (actionId) {
+                EditorInfo.IME_ACTION_SEND -> {
+                    if (model.isMessagePrepared()) {
+                        model.sendMessage()
+                        true
+                    } else false
+                }
+                else -> false
+            }
 
     private fun loadFromIntent() {
         user = intent.getParcelableExtra(EXTRA_USER)
@@ -93,7 +95,7 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
 
     override fun closeKeyboard() = hideKeyboard()
 
-    override fun notifyDataRangeChanged(start: Int, itemCount: Int) {
+    override fun notifyItemRangeInserted(start: Int, itemCount: Int) {
         adapter.notifyItemRangeInserted(start, itemCount)
         binding.recyclerView.scrollToPosition(start)
     }

@@ -2,8 +2,11 @@ package com.rstit.connector.ui.password
 
 import android.databinding.ObservableBoolean
 import com.rstit.binding.ObservableString
+import com.rstit.connector.di.base.scope.ActivityScope
 import com.rstit.connector.model.password.ChangePasswordBody
+import com.rstit.connector.model.password.ChangePasswordResponse
 import com.rstit.connector.net.ConnectorApi
+import com.rstit.connector.settings.AppSettings
 import com.rstit.di.names.NonEmptyValidatorName
 import com.rstit.di.names.PasswordValidatorName
 import com.rstit.ui.base.model.BaseViewModel
@@ -16,6 +19,7 @@ import javax.inject.Inject
  * @author Tomasz Trybala
  * @since 2017-07-20
  */
+@ActivityScope
 class ResetPasswordViewModel @Inject constructor() : BaseViewModel() {
     val oldPassword = ObservableString()
     val newPassword = ObservableString()
@@ -35,6 +39,9 @@ class ResetPasswordViewModel @Inject constructor() : BaseViewModel() {
     @Inject
     lateinit var api: ConnectorApi
 
+    @Inject
+    lateinit var appSettings: AppSettings
+
     fun sendRequest() =
             registerDisposable(api.changePassword(ChangePasswordBody(oldPassword.get(), newPassword.get()))
                     .subscribeOn(Schedulers.io())
@@ -45,23 +52,28 @@ class ResetPasswordViewModel @Inject constructor() : BaseViewModel() {
                         viewAccess.closeKeyboard()
                     })
                     .doOnTerminate({ loading.set(false) })
-                    .subscribe({ viewAccess.displaySuccess() }, { viewAccess.displayOldPasswordError() }))
+                    .subscribe(this::handleResponse, { viewAccess.displayOldPasswordError() }))
+
+    fun handleResponse(response: ChangePasswordResponse) {
+        appSettings.apiToken = response.token
+        viewAccess.displaySuccess()
+    }
 
     fun validate() {
         error.set(null)
 
         if (!nonEmptyValidator.isValid(oldPassword.get())) {
-            error.set(viewAccess.getEmptyOldPasswordError())
+            error.set(viewAccess.getEmptyOldPasswordError)
             return
         }
 
         if (!passwordValidator.isValid(newPassword.get())) {
-            error.set(viewAccess.getNewPasswordError())
+            error.set(viewAccess.getNewPasswordError)
             return
         }
 
         if (newPassword.get() != confirmPassword.get()) {
-            error.set(viewAccess.getConfirmPasswordError())
+            error.set(viewAccess.getConfirmPasswordError)
             return
         }
 

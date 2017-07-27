@@ -43,21 +43,31 @@ class AppSettingsImpl(context: Context) : AppSettings {
 
     override var apiToken: String?
         get() = loadFromSettings(SETTINGS_TOKEN)
-        set(value) = value.let { saveToSettings(SETTINGS_TOKEN, it!!) }
+        set(value) {
+            value?.let { saveToSettings(SETTINGS_TOKEN, it) }
+        }
 
     override var userName: String?
         get() = loadFromSettings(SETTINGS_USER_NAME)
-        set(value) = value.let { saveToSettings(SETTINGS_USER_NAME, it!!) }
+        set(value) {
+            value?.let { saveToSettings(SETTINGS_USER_NAME, it) }
+        }
 
     override var userEmail: String?
         get() = loadFromSettings(SETTINGS_USER_EMAIL)
-        set(value) = value.let { saveToSettings(SETTINGS_USER_EMAIL, it!!) }
+        set(value) {
+            value?.let { saveToSettings(SETTINGS_USER_EMAIL, it) }
+        }
 
     override var userAvatar: String?
         get() = loadFromSettings(SETTINGS_USER_AVATAR)
-        set(value) = value.let { saveToSettings(SETTINGS_USER_AVATAR, it!!) }
+        set(value) {
+            value?.let { saveToSettings(SETTINGS_USER_AVATAR, it) }
+        }
 
     override var userStatus: String?
         get() = loadFromSettings(SETTINGS_USER_STATUS)
-        set(value) = value.let { saveToSettings(SETTINGS_USER_STATUS, it!!) }
+        set(value) {
+            value?.let { saveToSettings(SETTINGS_USER_STATUS, it) }
+        }
 }

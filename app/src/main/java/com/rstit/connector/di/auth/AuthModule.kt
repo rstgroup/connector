@@ -11,7 +11,6 @@ import dagger.Provides
  * @since 2017-07-17
  */
 @Module
-@ActivityScope
 class AuthModule(private val activity: AuthActivity) {
     @Provides
     @ActivityScope

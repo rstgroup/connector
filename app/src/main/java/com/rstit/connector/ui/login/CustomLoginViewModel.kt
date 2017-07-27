@@ -10,7 +10,6 @@ import com.rstit.connector.settings.AppSettings
 import com.rstit.ui.auth.login.LoginViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -43,7 +42,7 @@ class CustomLoginViewModel @Inject constructor() : LoginViewModel() {
         response.user?.let {
             appSettings.userAvatar = it.avatar
             appSettings.userEmail = it.email
-            appSettings.userName = String.format(Locale.getDefault(), "%s %s", it.name, it.lastName)
+            appSettings.userName = "${it.name} ${it.lastName}"
             appSettings.userStatus = it.getUserRole().role
         }
         viewAccess.navigateToMain()

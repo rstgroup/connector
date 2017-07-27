@@ -41,15 +41,22 @@ class ResetPasswordViewModelTest : BaseTest() {
     fun sendRequest() {
         model.oldPassword.set("oldPass")
         model.newPassword.set("newPass")
-        Mockito.`when`(model.api.changePassword(any())).thenReturn(Observable.just(response(true)))
+        Mockito.`when`(model.api.changePassword(any())).thenReturn(Observable.just(changePasswordResponse))
         model.sendRequest()
         Mockito.verify(model.api).changePassword(any())
     }
 
     @Test
+    fun handleResponse() {
+        model.handleResponse(changePasswordResponse)
+        Mockito.verify(model.appSettings).apiToken = changePasswordResponse.token
+        Mockito.verify(model.viewAccess).displaySuccess()
+    }
+
+    @Test
     fun validate_emptyOld() {
         model.oldPassword.set("")
-        Mockito.`when`(model.viewAccess.getEmptyOldPasswordError()).thenReturn("empty")
+        Mockito.`when`(model.viewAccess.getEmptyOldPasswordError).thenReturn("empty")
         model.validate()
         assertThat(model.error.get(), notNullValue())
     }
@@ -58,7 +65,7 @@ class ResetPasswordViewModelTest : BaseTest() {
     fun validate_incorrectNew() {
         model.oldPassword.set("oldPass")
         model.newPassword.set("")
-        Mockito.`when`(model.viewAccess.getNewPasswordError()).thenReturn("empty")
+        Mockito.`when`(model.viewAccess.getNewPasswordError).thenReturn("empty")
         model.validate()
         assertThat(model.error.get(), notNullValue())
     }
@@ -68,7 +75,7 @@ class ResetPasswordViewModelTest : BaseTest() {
         model.oldPassword.set("oldPass")
         model.newPassword.set("newPass")
         model.confirmPassword.set("newPass1")
-        Mockito.`when`(model.viewAccess.getConfirmPasswordError()).thenReturn("empty")
+        Mockito.`when`(model.viewAccess.getConfirmPasswordError).thenReturn("empty")
         model.validate()
         assertThat(model.error.get(), notNullValue())
     }
@@ -79,7 +86,7 @@ class ResetPasswordViewModelTest : BaseTest() {
         model.newPassword.set("newPass")
         model.confirmPassword.set("newPass")
 
-        Mockito.`when`(model.api.changePassword(any())).thenReturn(Observable.just(response(true)))
+        Mockito.`when`(model.api.changePassword(any())).thenReturn(Observable.just(changePasswordResponse))
         model.validate()
         assertThat(model.error.get(), nullValue())
         Mockito.verify(model.api).changePassword(any())

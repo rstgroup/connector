@@ -12,7 +12,6 @@ import dagger.Provides
  * @author Tomasz Trybala
  * @since 2017-07-17
  */
-@ActivityScope
 @Module
 class UserSearchModule(private val activity: UserSearchActivity) {
     @Provides

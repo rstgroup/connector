@@ -5,6 +5,7 @@ import com.rstit.connector.model.inbox.InboxEntry
 import com.rstit.connector.model.inbox.InboxResponse
 import com.rstit.connector.model.inbox.Message
 import com.rstit.connector.model.password.ChangePasswordBody
+import com.rstit.connector.model.password.ChangePasswordResponse
 import com.rstit.connector.model.user.User
 import okhttp3.ResponseBody
 import org.junit.Rule
@@ -38,6 +39,9 @@ open class BaseTest {
 
     val changePasswordBody: ChangePasswordBody =
             ChangePasswordBody("oldPass", "newPass")
+
+    val changePasswordResponse: ChangePasswordResponse =
+            ChangePasswordResponse("token")
 
     fun response(success: Boolean): Response<Void> =
             if (success) {

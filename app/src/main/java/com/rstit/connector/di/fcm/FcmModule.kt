@@ -9,7 +9,6 @@ import dagger.Provides
  * @author Tomasz Trybala
  * @since 2017-07-26
  */
-@ServiceScope
 @Module
 class FcmModule(private val service: RstFirebaseMessageService) {
     @Provides

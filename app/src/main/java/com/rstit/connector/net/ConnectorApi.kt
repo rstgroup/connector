@@ -5,6 +5,7 @@ import com.rstit.connector.model.auth.SignInResponse
 import com.rstit.connector.model.chat.ChatResponse
 import com.rstit.connector.model.inbox.InboxResponse
 import com.rstit.connector.model.password.ChangePasswordBody
+import com.rstit.connector.model.password.ChangePasswordResponse
 import com.rstit.connector.model.password.MessageToAllBody
 import com.rstit.connector.model.user.User
 import io.reactivex.Observable
@@ -28,7 +29,7 @@ interface ConnectorApi {
     fun signIn(@Body body: SignInBody): Observable<SignInResponse>
 
     @POST("auth/change_password")
-    fun changePassword(@Body body: ChangePasswordBody): Observable<Response<Void>>
+    fun changePassword(@Body body: ChangePasswordBody): Observable<ChangePasswordResponse>
 
     @GET("messages/inbox")
     fun getInbox(@Query(QUERY_OFFSET) offset: Int, @Query(QUERY_SIZE) size: Int = DEFAULT_PER_PAGE): Observable<InboxResponse>

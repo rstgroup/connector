@@ -12,7 +12,6 @@ import com.rstit.ui.base.model.BaseViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -60,7 +59,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
                 }
                 .doOnTerminate { loading.set(false) }
                 .doOnNext { it -> viewAccess.setScrollListenerEnabled(!it.isLastPage) }
-                .map { it -> it.entries ?: Collections.emptyList() }
+                .map { it -> it.entries ?: emptyList() }
                 .flatMap { it -> Observable.fromIterable(it) }
                 .map { it -> MainRowViewModel(it) }
                 .toList()

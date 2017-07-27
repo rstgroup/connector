@@ -1,7 +1,6 @@
 package com.rstit.connector.fcm
 
 import android.app.PendingIntent
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.media.RingtoneManager
@@ -37,6 +36,10 @@ class RstFirebaseMessageService : FirebaseMessagingService() {
     @Inject
     lateinit var gson: Gson
 
+    val imageSize: Int by lazy {
+        this.resources.getDimensionPixelSize(R.dimen.padding_xxlarge)
+    }
+
     override fun onCreate() {
         super.onCreate()
 
@@ -57,7 +60,7 @@ class RstFirebaseMessageService : FirebaseMessagingService() {
     fun receiveMessage(json: String) {
         try {
             val entry: InboxEntry = gson.fromJson(json, InboxEntry::class.java)
-            Handler(Looper.getMainLooper()).post({ loadMessageBitmap(entry, getImageSize(this)) })
+            Handler(Looper.getMainLooper()).post { loadMessageBitmap(entry, imageSize) }
         } catch (e: Exception) {
             e.printStackTrace()
             /**
@@ -118,6 +121,4 @@ class RstFirebaseMessageService : FirebaseMessagingService() {
             NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, builder.build())
         }
     }
-
-    fun getImageSize(context: Context) = context.resources.getDimensionPixelSize(R.dimen.padding_xxlarge)
 }

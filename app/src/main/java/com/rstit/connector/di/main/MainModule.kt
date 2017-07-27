@@ -10,7 +10,6 @@ import dagger.Provides
  * @author Tomasz Trybala
  * @since 2017-07-17
  */
-@ActivityScope
 @Module
 class MainModule(private val activity: MainActivity) {
     @Provides

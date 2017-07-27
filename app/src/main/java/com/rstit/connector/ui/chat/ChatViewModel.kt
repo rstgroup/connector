@@ -58,18 +58,20 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
                 .subscribe({ list -> handleResponse(list, true) }, { handleError() }))
     }
 
+    fun isMessagePrepared() : Boolean = isConnected.get() && !content.get().isNullOrEmpty()
+
     fun sendMessage() {
         models.add(0, ChatMyMessageRowViewModel(Message(content = content.get(), createdAt = Date(), isMyMessage = true), chatDateConverter))
         content.set("")
         isEmpty.set(false)
-        viewAccess.notifyDataRangeChanged(0, 1)
+        viewAccess.notifyItemRangeInserted(0, 1)
     }
 
     fun handleResponse(list: Collection<RowViewModel>, clear: Boolean) {
         if (clear) models.clear()
         models.addAll(list)
         isEmpty.set(models.isEmpty())
-        viewAccess.notifyDataRangeChanged(if (clear) 0 else models.size - list.size, list.size)
+        viewAccess.notifyItemRangeInserted(if (clear) 0 else models.size - list.size, list.size)
     }
 
     fun handleError() = isEmpty.set(models.isEmpty())

@@ -10,7 +10,6 @@ import dagger.Provides
  * @author Tomasz Trybala
  * @since 2017-07-24
  */
-@ActivityScope
 @Module
 class ChatModule(private val activity: ChatActivity) {
     @Provides
