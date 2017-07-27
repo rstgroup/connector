@@ -30,13 +30,15 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
 
     lateinit var user: User
 
-    private fun bindViews() {
+    private fun setToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             title = "${user.name} ${user.lastName}"
             setDisplayHomeAsUpEnabled(true)
         }
+    }
 
+    private fun bindViews() {
         binding.recyclerView.addOnScrollListener(scrollListener)
         binding.edtSearch.setOnEditorActionListener({ _, id, _ -> onImeAction(id) })
     }
@@ -52,7 +54,7 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
                 else -> false
             }
 
-    private fun loadFromIntent() {
+    private fun loadFromIntent(intent: Intent) {
         user = intent.getParcelableExtra(EXTRA_USER)
     }
 
@@ -71,7 +73,7 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadFromIntent()
+        loadFromIntent(intent)
 
         ConnectorApplication.get(this)
                 .appComponent
@@ -82,9 +84,21 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
         binding.model = model
         binding.viewAccess = this
 
+        setToolbar()
         bindViews()
+
         model.otherUser = user
         model.refresh()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.let {
+            loadFromIntent(it)
+            setToolbar()
+            model.otherUser = user
+            model.refresh()
+        }
     }
 
     override fun clearScrollListener() = scrollListener.clear()

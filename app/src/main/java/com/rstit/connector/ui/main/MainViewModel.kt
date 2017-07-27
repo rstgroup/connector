@@ -3,7 +3,10 @@ package com.rstit.connector.ui.main
 import android.databinding.ObservableBoolean
 import com.rstit.binding.ObservableString
 import com.rstit.connector.di.base.scope.ActivityScope
+import com.rstit.connector.model.inbox.InboxEntry
+import com.rstit.connector.model.inbox.Message
 import com.rstit.connector.model.password.MessageToAllBody
+import com.rstit.connector.model.user.User
 import com.rstit.connector.model.user.UserRole
 import com.rstit.connector.net.ConnectorApi
 import com.rstit.connector.settings.AppSettings
@@ -12,6 +15,7 @@ import com.rstit.ui.base.model.BaseViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -74,6 +78,10 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun handleError() {
+        models.add(MainRowViewModel(InboxEntry(User(4, "Krzysztof", "Marszałek", "k.m@rst-it.com", "https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/05b/102/331e441.jpg", "admin"),
+                Message(4, "Witam na pokładzie RST-IT!", "read", Date(), false))))
+        viewAccess.setScrollListenerEnabled(false)
+        viewAccess.notifyDataSetChanged()
         isEmpty.set(models.isEmpty())
     }
 
