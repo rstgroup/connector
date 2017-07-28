@@ -23,7 +23,7 @@
     <string name="ct_icon_send">icon_send</string>
 
     <string name="empty_inbox_text">Your inbox is empty.\nWait for messages sent by HR department.</string>
-    <string name="empty_chat_text">Cannot fetch the conversation.\nPlease check your internet connection.</string>
+    <string name="empty_chat_text">There are no messages already.\nStart conversation!</string>
 
     <string name="sign_out_label">Sign out</string>
     <string name="change_password_label">Change password</string>

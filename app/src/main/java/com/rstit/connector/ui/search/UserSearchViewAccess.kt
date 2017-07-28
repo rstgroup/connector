@@ -16,5 +16,5 @@ interface UserSearchViewAccess {
 
     val textWatcher: SimpleTextWatcher
 
-    fun notifyDataSetChanged(previousSize: Int, currentSize: Int)
+    fun notifyDataSetChanged()
 }

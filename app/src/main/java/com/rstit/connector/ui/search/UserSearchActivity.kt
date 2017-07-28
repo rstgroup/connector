@@ -59,10 +59,7 @@ class UserSearchActivity : BaseActivity(), UserSearchViewAccess {
         }
     }
 
-    override fun notifyDataSetChanged(previousSize: Int, currentSize: Int) {
-        adapter.notifyItemRangeRemoved(0, previousSize)
-        adapter.notifyItemRangeChanged(0, currentSize)
-    }
+    override fun notifyDataSetChanged() = adapter.notifyDataSetChanged()
 
     override fun startSpeaking() {
         try {
