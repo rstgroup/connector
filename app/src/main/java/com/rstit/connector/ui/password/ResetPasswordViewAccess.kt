@@ -9,6 +9,8 @@ interface ResetPasswordViewAccess {
 
     fun displayOldPasswordError()
 
+    fun displayDefaultError()
+
     val getEmptyOldPasswordError: String
 
     val getNewPasswordError: String

@@ -1,6 +1,7 @@
 package com.rstit.connector.ui.password
 
 import android.databinding.ObservableBoolean
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import com.rstit.binding.ObservableString
 import com.rstit.connector.di.base.scope.ActivityScope
 import com.rstit.connector.model.password.ChangePasswordBody
@@ -13,6 +14,7 @@ import com.rstit.ui.base.model.BaseViewModel
 import com.rstit.validation.Validator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 /**
@@ -46,17 +48,25 @@ class ResetPasswordViewModel @Inject constructor() : BaseViewModel() {
             registerDisposable(api.changePassword(ChangePasswordBody(oldPassword.get(), newPassword.get()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe({
+                    .doOnSubscribe {
                         error.set(null)
                         loading.set(true)
                         viewAccess.closeKeyboard()
-                    })
-                    .doOnTerminate({ loading.set(false) })
-                    .subscribe(this::handleResponse, { viewAccess.displayOldPasswordError() }))
+                    }
+                    .doOnTerminate { loading.set(false) }
+                    .subscribe(this::handleResponse, this::handleErrorResponse))
 
     fun handleResponse(response: ChangePasswordResponse) {
         appSettings.apiToken = response.token
         viewAccess.displaySuccess()
+    }
+
+    fun handleErrorResponse(error: Throwable?) {
+        if (error is HttpException && error.code() == HttpURLConnection.HTTP_CONFLICT) {
+            viewAccess.displayOldPasswordError()
+        } else {
+            viewAccess.displayDefaultError()
+        }
     }
 
     fun validate() {

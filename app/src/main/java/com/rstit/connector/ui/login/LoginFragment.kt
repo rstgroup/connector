@@ -3,6 +3,7 @@ package com.rstit.connector.ui.login
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,8 @@ class LoginFragment : BaseFragment(), CustomLoginViewAccess {
     }
 
     override fun displayError() = showSnackbar(binding.root, R.string.error_sign_in)
+
+    override fun displayInvalidDataError() = showSnackbar(binding.root, R.string.error_sign_in_invalid_data, Snackbar.LENGTH_LONG)
 
     override fun closeKeyboard() = hideKeyboard()
 }

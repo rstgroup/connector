@@ -8,5 +8,5 @@ import com.google.gson.annotations.SerializedName
  */
 data class ChangePasswordResponse(
         @SerializedName("token")
-        val token: String
+        val token: String? = null
 )

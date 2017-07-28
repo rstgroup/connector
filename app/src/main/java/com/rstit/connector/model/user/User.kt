@@ -14,7 +14,7 @@ data class User(
         @SerializedName("id")
         val id: Int? = 0,
 
-        @SerializedName("name")
+        @SerializedName("first_name")
         val name: String? = null,
 
         @SerializedName("last_name")
