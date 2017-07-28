@@ -4,6 +4,7 @@ import com.rstit.connector.model.auth.SignInBody
 import com.rstit.connector.model.auth.SignInResponse
 import com.rstit.connector.model.chat.ChatResponse
 import com.rstit.connector.model.inbox.InboxResponse
+import com.rstit.connector.model.inbox.Message
 import com.rstit.connector.model.password.ChangePasswordBody
 import com.rstit.connector.model.password.ChangePasswordResponse
 import com.rstit.connector.model.password.MessageToAllBody
@@ -41,7 +42,7 @@ interface ConnectorApi {
     fun searchUsers(@Query(QUERY_SEARCH) name: String): Observable<Collection<User>>
 
     @GET("messages/{id}/since")
-    fun getChatSinceMessage(@Path("id") userId: Int, @Query(QUERY_SINCE_ID) sinceId: Int): Observable<ChatResponse>
+    fun getChatSinceMessage(@Path("id") userId: Int, @Query(QUERY_SINCE_ID) sinceId: Int): Observable<Collection<Message>>
 
     @GET("messages/{id}/after")
     fun getChatAfterMessage(@Path("id") userId: Int? = 0, @Query(QUERY_AFTER_ID) afterId: Int,
