@@ -19,5 +19,4 @@ class MainModule(private val activity: MainActivity) {
     @Provides
     @ActivityScope
     fun provideMainActivityAccess(activity: MainActivity): MainViewAccess = activity
-
 }

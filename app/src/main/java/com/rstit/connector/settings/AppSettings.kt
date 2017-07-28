@@ -7,6 +7,14 @@ package com.rstit.connector.settings
 interface AppSettings {
     var apiToken: String?
 
+    var userName: String?
+
+    var userEmail: String?
+
+    var userAvatar: String?
+
+    var userStatus: String?
+
     fun isUserLogged(): Boolean
 
     fun logOut()

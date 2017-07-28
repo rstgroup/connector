@@ -12,7 +12,6 @@ import dagger.Provides
  * @since 2017-07-17
  */
 @Module
-@FragmentScope
 class LoginModule(private val fragment: LoginFragment) {
     @Provides
     @FragmentScope

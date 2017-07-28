@@ -11,7 +11,7 @@ ext {
     rxJavaVersion = '2.0.6'
     rxAndroidVersion = '2.0.1'
     rxRetrofitAdapterVersion = '1.0.0'
-    crashlyticsVersion = '2.5.5@aar'
+    crashlyticsVersion = '2.6.8@aar'
     junitVersion = '4.12'
     dexmaker = '1.2'
     mockitoCore = '2.0.7-beta'
@@ -19,6 +19,7 @@ ext {
     rstAndroidBaseVersion = '1.0.2'
     daggerVersion = '2.11'
     fabMenuVersion = '1.10.1'
+    paperParcelVersion = '2.0.1'
 
     support = [
             design:                     "com.android.support:design:${supportLibraryVersion}",
@@ -95,5 +96,11 @@ ext {
 
     views = [
             fabMenu:                     "com.getbase:floatingactionbutton:${fabMenuVersion}"
+    ]
+
+    paperParcel = [
+            library:                     "nz.bradcampbell:paperparcel:${paperParcelVersion}",
+            kotlin:                      "nz.bradcampbell:paperparcel-kotlin:${paperParcelVersion}",
+            compiler:                    "nz.bradcampbell:paperparcel-compiler:${paperParcelVersion}"
     ]
 }

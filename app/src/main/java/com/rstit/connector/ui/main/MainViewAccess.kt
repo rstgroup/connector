@@ -14,4 +14,14 @@ interface MainViewAccess {
     fun selectPerson()
 
     fun writeToAll()
+
+    fun closeKeyboard()
+
+    fun displaySuccessSnackbar()
+
+    fun displayErrorMessage()
+
+    fun clearScrollListener()
+
+    fun setScrollListenerEnabled(enabled: Boolean)
 }
