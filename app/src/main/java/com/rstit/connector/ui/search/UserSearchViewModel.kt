@@ -55,6 +55,8 @@ class UserSearchViewModel @Inject constructor() : BaseViewModel() {
                     models.clear()
                     models.addAll(it)
                 }
+                .doOnSubscribe { loading.set(true) }
+                .doOnTerminate { loading.set(false) }
                 .subscribe({ handleResponse(true, currentSize) }, { handleResponse(false, currentSize) }))
     }
 

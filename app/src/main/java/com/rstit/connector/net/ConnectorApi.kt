@@ -38,11 +38,10 @@ interface ConnectorApi {
     fun sendMessageToAll(@Body body: MessageToAllBody): Observable<Response<Void>>
 
     @GET("users/")
-    fun searchUsers(@Query(QUERY_OFFSET) page: Int = FIRST_PAGE, @Query(QUERY_SEARCH) name: String): Observable<Collection<User>>
+    fun searchUsers(@Query(QUERY_SEARCH) name: String): Observable<Collection<User>>
 
     @GET("messages/{id}/since")
-    fun getChatSinceMessage(@Path("id") userId: Int, @Query(QUERY_SINCE_ID) sinceId: Int,
-                            @Query(QUERY_SIZE) size: Int = DEFAULT_PER_PAGE): Observable<ChatResponse>
+    fun getChatSinceMessage(@Path("id") userId: Int, @Query(QUERY_SINCE_ID) sinceId: Int): Observable<ChatResponse>
 
     @GET("messages/{id}/after")
     fun getChatAfterMessage(@Path("id") userId: Int? = 0, @Query(QUERY_AFTER_ID) afterId: Int,
