@@ -87,6 +87,8 @@ dependencies {
     implementation paperParcel.kotlin
     kapt paperParcel.compiler
 
+    implementation webSocket.client
+
     debugImplementation squareup.leakCanaryDebug
     releaseImplementation squareup.leakCanaryRelease
 

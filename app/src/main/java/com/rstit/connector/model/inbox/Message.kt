@@ -13,7 +13,7 @@ import java.util.*
 @PaperParcel
 data class Message(
         @SerializedName("id")
-        val id: Int? = 0,
+        val id: Long? = 0,
 
         @SerializedName("content")
         val content: String? = null,
@@ -25,7 +25,9 @@ data class Message(
         val createdAt: Date? = null,
 
         @SerializedName("is_my_message")
-        val isMyMessage: Boolean? = null
+        val isMyMessage: Boolean? = null,
+
+        val uuid: String? = null
 ) : PaperParcelable {
     companion object {
         @JvmField

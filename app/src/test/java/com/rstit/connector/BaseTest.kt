@@ -26,7 +26,7 @@ open class BaseTest {
                     "avatar.jpg", "developer")
 
     val message: Message =
-            Message(1, "content", "read", Date(), false)
+            Message(1L, "content", "read", Date(), false)
 
     val signInResponse: SignInResponse =
             SignInResponse("token", user)

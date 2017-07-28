@@ -8,6 +8,7 @@ import com.rstit.connector.di.date.names.ChatConverter
 import com.rstit.connector.model.inbox.Message
 import com.rstit.connector.model.user.User
 import com.rstit.connector.net.ConnectorApi
+import com.rstit.connector.net.websocket.client.WebSocket
 import com.rstit.connector.ui.base.RowViewModel
 import com.rstit.ui.base.model.BaseViewModel
 import io.reactivex.Observable
@@ -15,6 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * @author Tomasz Trybala
@@ -33,6 +35,9 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
 
     @field:[Inject ChatConverter]
     lateinit var chatDateConverter: DateConverter
+
+    @Inject
+    lateinit var webSocketClient: WebSocket
 
     @Inject
     lateinit var api: ConnectorApi
@@ -58,7 +63,7 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
                 .subscribe({ list -> handleResponse(list, true) }, { handleError() }))
     }
 
-    fun isMessagePrepared() : Boolean = isConnected.get() && !content.get().isNullOrEmpty()
+    fun isMessagePrepared(): Boolean = isConnected.get() && !content.get().isNullOrEmpty()
 
     fun sendMessage() {
         models.add(0, ChatMyMessageRowViewModel(Message(content = content.get(), createdAt = Date(), isMyMessage = true), chatDateConverter))
