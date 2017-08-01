@@ -27,6 +27,8 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
     val loading = ObservableBoolean(true)
     val isEmpty = ObservableBoolean()
     val content = ObservableString()
+    val title = ObservableString()
+    val avatar = ObservableString()
     val models = ArrayList<RowViewModel>()
 
     @Inject
@@ -42,6 +44,12 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
     lateinit var api: ConnectorApi
 
     lateinit var otherUser: User
+
+    fun setUser(user: User){
+        otherUser = user
+        title.set("${user.name} ${user.lastName}")
+        avatar.set(user.avatar)
+    }
 
     fun changeChatTimeToggle(model: BaseChatMessageRowViewModel) {
         registerDisposable(Observable.fromIterable(models)

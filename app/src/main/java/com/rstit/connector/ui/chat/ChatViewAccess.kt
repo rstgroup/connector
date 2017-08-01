@@ -16,4 +16,6 @@ interface ChatViewAccess {
     fun clearScrollListener()
 
     fun setScrollListenerEnabled(enabled: Boolean)
+
+    fun finishActivity()
 }

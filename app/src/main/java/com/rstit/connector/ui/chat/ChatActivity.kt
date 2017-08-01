@@ -31,14 +31,6 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
 
     lateinit var user: User
 
-    private fun setToolbar() {
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.apply {
-            title = "${user.name} ${user.lastName}"
-            setDisplayHomeAsUpEnabled(true)
-        }
-    }
-
     private fun bindViews() {
         binding.recyclerView.addOnScrollListener(scrollListener)
         binding.edtSearch.setOnEditorActionListener({ _, id, _ -> onImeAction(id) })
@@ -88,10 +80,9 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
         binding.model = model
         binding.viewAccess = this
 
-        setToolbar()
         bindViews()
 
-        model.otherUser = user
+        model.setUser(user)
         model.refresh()
     }
 
@@ -99,8 +90,7 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
         super.onNewIntent(intent)
         intent?.let {
             loadFromIntent(it)
-            setToolbar()
-            model.otherUser = user
+            model.setUser(user)
             model.refresh()
         }
     }
@@ -112,6 +102,8 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
     }
 
     override fun closeKeyboard() = hideKeyboard()
+
+    override fun finishActivity() = finish()
 
     override fun notifyItemRangeInserted(start: Int, itemCount: Int) {
         adapter.notifyItemRangeInserted(start, itemCount)

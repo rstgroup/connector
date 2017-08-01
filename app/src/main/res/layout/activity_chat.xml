@@ -25,14 +25,39 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                android:fitsSystemWindows="true"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_marginEnd="@dimen/padding_default"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/ct_icon_back"
+                        android:onClick="@{() -> viewAccess.finishActivity()}"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_arrow_left_white_24dp"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/list_avatar_size"
+                        android:layout_height="@dimen/list_avatar_size"
+                        android:layout_marginEnd="@dimen/padding_large"
+                        android:contentDescription="@string/ct_avatar_icon"
+                        app:circleImage="@{model.avatar}"
+                        tools:src="@drawable/ic_account_circle_grey"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@{model.title}"
+                        android:textColor="@android:color/white"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+                </LinearLayout>
         </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
