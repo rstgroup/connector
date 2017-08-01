@@ -7,18 +7,17 @@
 
         <variable
             name="model"
-            type="com.rstit.connector.ui.chat.ChatMyMessageRowViewModel"/>
+            type="com.rstit.connector.ui.chat.ChatOtherMessageRowViewModel"/>
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_xxxlarge"
+        android:background="?attr/selectableItemBackground"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/padding_small"
-        android:paddingEnd="@dimen/padding_xxxlarge"
         android:paddingStart="@dimen/padding_default"
-        android:paddingTop="@dimen/padding_small"
-        tools:ignore="UseCompoundDrawables">
+        tools:ignore="RtlSymmetry,UseCompoundDrawables">
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +28,7 @@
             android:text="@{model.content}"
             android:textColor="@android:color/black"
             android:textSize="@dimen/font_large"
-            tools:text="Three line imtem"/>
+            tools:text="Three line imtemaskjdbasln askd ;alk a;slkmd;alsmd;alms;dlmasldma.smd.aksnd.kansd.kna.kns.dkna.sd"/>
 
         <TextView
             android:layout_width="wrap_content"

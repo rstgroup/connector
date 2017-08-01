@@ -90,7 +90,7 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
     fun isMessagePrepared(): Boolean = isConnected.get() && !content.get().isNullOrEmpty()
 
     fun sendMessage() {
-        models.add(0, ChatMyMessageRowViewModel(Message(content = content.get(), createdAt = Date(), isMyMessage = true), chatDateConverter))
+        models.add(0, ChatMyMessageRowViewModel(Message(content = content.get(), createdAt = Date()), chatDateConverter))
         content.set("")
         isEmpty.set(false)
         viewAccess.notifyItemRangeInserted(0, 1)

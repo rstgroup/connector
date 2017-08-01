@@ -7,5 +7,4 @@ import com.rstit.connector.model.inbox.Message
  * @author Tomasz Trybala
  * @since 2017-07-25
  */
-class ChatMyMessageRowViewModel(message: Message, converter: DateConverter) : BaseChatMessageRowViewModel(message, converter) {
-}
+class ChatMyMessageRowViewModel(message: Message, converter: DateConverter) : BaseChatMessageRowViewModel(message, converter)
