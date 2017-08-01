@@ -3,6 +3,7 @@ package com.rstit.connector.ui.chat
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
@@ -54,6 +55,9 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
                 else -> false
             }
 
+    private fun setChatListener(chatMessageModel: BaseChatMessageRowViewModel, binding: ViewDataBinding) =
+            binding.root.setOnClickListener({ model.changeChatTimeToggle(chatMessageModel) })
+
     private fun loadFromIntent(intent: Intent) {
         user = intent.getParcelableExtra(EXTRA_USER)
     }
@@ -66,8 +70,8 @@ class ChatActivity : BaseActivity(), ChatViewAccess {
 
     override val adapter: MultiViewAdapter by lazy {
         MultiViewAdapter.Builder(model.models)
-                .register(R.layout.row_chat_my_message, ChatMyMessageRowViewModel::class.java)
-                .register(R.layout.row_chat_other_message, ChatOtherMessageRowViewModel::class.java)
+                .register(R.layout.row_chat_my_message, ChatMyMessageRowViewModel::class.java, this::setChatListener)
+                .register(R.layout.row_chat_other_message, ChatOtherMessageRowViewModel::class.java, this::setChatListener)
                 .build()
     }
 

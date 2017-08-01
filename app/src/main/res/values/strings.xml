@@ -21,6 +21,7 @@
     <string name="ct_icon_logo">icon_logo</string>
     <string name="ct_icon_microphone">icon_microphone</string>
     <string name="ct_icon_send">icon_send</string>
+    <string name="ct_icon_check_all">icon_check</string>
 
     <string name="empty_inbox_text">Your inbox is empty.\nWait for messages sent by HR department.</string>
     <string name="empty_chat_text">There are no messages already.\nStart conversation!</string>

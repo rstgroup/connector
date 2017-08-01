@@ -16,7 +16,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * @author Tomasz Trybala
@@ -44,6 +43,17 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
 
     lateinit var otherUser: User
 
+    fun changeChatTimeToggle(model: BaseChatMessageRowViewModel) {
+        registerDisposable(Observable.fromIterable(models)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter { element -> element is BaseChatMessageRowViewModel }
+                .map { element -> element as BaseChatMessageRowViewModel }
+                .filter { element -> element.timeVisible.get() }
+                .firstOrError()
+                .subscribe({ element -> handleToggledModel(element, model) }, { handleToggledModel(null, model) }))
+    }
+
     fun refresh() {
         registerDisposable(api.getChatAfterMessage(otherUser.id, 0)
                 .subscribeOn(Schedulers.io())
@@ -57,10 +67,16 @@ class ChatViewModel @Inject constructor() : BaseViewModel() {
                     if (entry.isMyMessage ?: false)
                         ChatMyMessageRowViewModel(entry, chatDateConverter)
                     else
-                        ChatOtherMessageRowViewModel(entry, otherUser.avatar, chatDateConverter)
+                        ChatOtherMessageRowViewModel(entry, chatDateConverter)
                 }
                 .toList()
                 .subscribe({ list -> handleResponse(list, true) }, { handleError() }))
+    }
+
+    fun handleToggledModel(old: BaseChatMessageRowViewModel?, new: BaseChatMessageRowViewModel) {
+        old?.toggleTime()
+        if (new != old)
+            new.toggleTime()
     }
 
     fun isMessagePrepared(): Boolean = isConnected.get() && !content.get().isNullOrEmpty()
