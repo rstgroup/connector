@@ -20,6 +20,7 @@ ext {
     daggerVersion = '2.11'
     fabMenuVersion = '1.10.1'
     paperParcelVersion = '2.0.1'
+    webSocketClientVersion = '2.3'
 
     support = [
             design:                     "com.android.support:design:${supportLibraryVersion}",
@@ -96,6 +97,10 @@ ext {
 
     views = [
             fabMenu:                     "com.getbase:floatingactionbutton:${fabMenuVersion}"
+    ]
+
+    webSocket = [
+            client:                      "com.neovisionaries:nv-websocket-client:${webSocketClientVersion}"
     ]
 
     paperParcel = [

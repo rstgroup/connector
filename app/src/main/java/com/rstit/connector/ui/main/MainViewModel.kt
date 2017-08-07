@@ -12,12 +12,18 @@ import com.rstit.ui.base.model.BaseViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import retrofit2.Response
+import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
  * @author Tomasz Trybala
  * @since 2017-07-18
  */
+const val KEYBOARD_DELAY = 500L
+const val ANIMATION_DELAY = 200L
+
 @ActivityScope
 class MainViewModel @Inject constructor() : BaseViewModel() {
     val loading: ObservableBoolean = ObservableBoolean()
@@ -42,6 +48,8 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
         messageToAll.set("")
         viewAccess.closeKeyboard()
     }
+
+    fun singOut() = appSettings.logOut()
 
     fun checkChatAvailability() = isChatAvailable.set(UserRole.from(appSettings.userStatus) == UserRole.Admin)
 
@@ -80,6 +88,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     fun sendMessageToAll() {
         registerDisposable(api.sendMessageToAll(
                 MessageToAllBody(messageToAll.get()))
+                .delay(KEYBOARD_DELAY, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe({
@@ -87,6 +96,17 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
                     viewAccess.closeKeyboard()
                 })
                 .doOnTerminate({ isSendingMessage.set(false) })
-                .subscribe({ viewAccess.displaySuccessSnackbar() }, { viewAccess.displayErrorMessage() }))
+                .subscribe(this::handleMessageResponse, { viewAccess.displayErrorMessage() }))
     }
+
+    fun handleMessageResponse(response: Response<Void>) =
+            if (response.isSuccessful) displaySuccess() else viewAccess.displayErrorMessage()
+
+    fun displaySuccess() = registerDisposable(Observable.just(Any())
+            .delay(ANIMATION_DELAY, TimeUnit.MILLISECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { hideMessage() }
+            .subscribe({ viewAccess.displaySuccessSnackbar() }))
+
 }

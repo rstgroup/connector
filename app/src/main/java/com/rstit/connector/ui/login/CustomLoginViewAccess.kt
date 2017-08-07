@@ -12,4 +12,6 @@ interface CustomLoginViewAccess : LoginViewAccess {
     fun navigateToMain()
 
     fun displayError()
+
+    fun displayInvalidDataError()
 }

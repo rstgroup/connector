@@ -26,7 +26,7 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(modules = arrayOf(AppModule::class, ValidationModule::class, AppSettingsModule::class, NetModule::class,
-        DateModule::class))
+        DateModule::class, WebSocketModule::class))
 interface AppComponent {
     fun inject(app: Application)
 

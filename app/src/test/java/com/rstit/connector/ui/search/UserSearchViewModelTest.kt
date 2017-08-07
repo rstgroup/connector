@@ -47,20 +47,20 @@ class UserSearchViewModelTest : BaseTest() {
 
     @Test
     fun handleResponse_Success() {
-        model.handleResponse(true, 0)
-        Mockito.verify(model.viewAccess).notifyDataSetChanged(0, 0)
+        model.handleResponse(true)
+        Mockito.verify(model.viewAccess).notifyDataSetChanged()
     }
 
     @Test
     fun handleResponse_Error() {
-        model.handleResponse(false, 0)
+        model.handleResponse(false)
         Mockito.verifyZeroInteractions(model.viewAccess)
     }
 
     @Test
     fun searchUser() {
-        Mockito.`when`(model.api.searchUsers(Matchers.anyInt(), Matchers.anyString())).thenReturn(Observable.just(listOf(user)))
+        Mockito.`when`(model.api.searchUsers(Matchers.anyString())).thenReturn(Observable.just(listOf(user)))
         model.searchUser("tom")
-        Mockito.verify(model.api).searchUsers(Matchers.anyInt(), Matchers.anyString())
+        Mockito.verify(model.api).searchUsers(Matchers.anyString())
     }
 }

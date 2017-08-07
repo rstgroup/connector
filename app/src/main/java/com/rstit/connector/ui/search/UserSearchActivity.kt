@@ -15,6 +15,7 @@ import com.rstit.connector.databinding.ActivityUserSearchBinding
 import com.rstit.connector.di.search.UserSearchModule
 import com.rstit.connector.ui.base.BaseActivity
 import com.rstit.connector.ui.base.MultiViewAdapter
+import com.rstit.connector.ui.chat.ChatActivity
 import com.rstit.connector.util.SimpleTextWatcher
 import java.util.*
 import javax.inject.Inject
@@ -58,10 +59,7 @@ class UserSearchActivity : BaseActivity(), UserSearchViewAccess {
         }
     }
 
-    override fun notifyDataSetChanged(previousSize: Int, currentSize: Int) {
-        adapter.notifyItemRangeRemoved(0, previousSize)
-        adapter.notifyItemRangeChanged(0, currentSize)
-    }
+    override fun notifyDataSetChanged() = adapter.notifyDataSetChanged()
 
     override fun startSpeaking() {
         try {
@@ -89,7 +87,7 @@ class UserSearchActivity : BaseActivity(), UserSearchViewAccess {
             binding.root.setOnClickListener({ navigateToChat(model) })
 
     private fun navigateToChat(model: UserRowViewModel) {
-        //todo navigate to chat
+        startActivity(ChatActivity.createIntent(this, model.user))
     }
 
     private fun setSpeechResult(resultCode: Int, data: Intent?) {

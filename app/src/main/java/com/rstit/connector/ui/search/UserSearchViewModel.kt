@@ -37,13 +37,13 @@ class UserSearchViewModel @Inject constructor() : BaseViewModel() {
     fun initSearching() =
             registerDisposable(viewAccess.textWatcher.textObservable
                     .throttleWithTimeout(THROTTLE_TIMEOUT, TimeUnit.MILLISECONDS)
+                    .filter { it -> !it.isNullOrBlank() }
                     .map { it -> it.toLowerCase() }
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::searchUser, { /*no-op*/ }))
 
     fun searchUser(name: String) {
-        val currentSize = models.size
         registerDisposable(api.searchUsers(name = name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -55,11 +55,13 @@ class UserSearchViewModel @Inject constructor() : BaseViewModel() {
                     models.clear()
                     models.addAll(it)
                 }
-                .subscribe({ handleResponse(true, currentSize) }, { handleResponse(false, currentSize) }))
+                .doOnSubscribe { loading.set(true) }
+                .doOnTerminate { loading.set(false) }
+                .subscribe({ handleResponse(true) }, { handleResponse(false) }))
     }
 
-    fun handleResponse(isSuccess: Boolean, previousSize: Int) {
+    fun handleResponse(isSuccess: Boolean) {
         isEmpty.set(models.isEmpty())
-        if (isSuccess) viewAccess.notifyDataSetChanged(previousSize, models.size)
+        if (isSuccess) viewAccess.notifyDataSetChanged()
     }
 }

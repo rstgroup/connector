@@ -120,4 +120,10 @@ class MainViewModelTest : BaseTest() {
         model.loadData(0, clear = true)
         verify(model.api).getInbox(0)
     }
+
+    @Test
+    fun displaySuccess() {
+        model.displaySuccess()
+        verify(model.viewAccess).closeKeyboard()
+    }
 }

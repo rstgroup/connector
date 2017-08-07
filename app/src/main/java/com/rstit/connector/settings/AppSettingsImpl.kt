@@ -1,5 +1,6 @@
 package com.rstit.connector.settings
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 
@@ -17,6 +18,15 @@ const val SETTINGS_USER_STATUS = "user_status"
 
 class AppSettingsImpl(context: Context) : AppSettings {
     private var context: Context = context.applicationContext
+
+    @SuppressLint("CommitPrefEdits")
+    private fun clearAll(){
+        val settings = context.getSharedPreferences(SETTINGS_NAME, Activity.MODE_PRIVATE)
+        settings.edit().apply {
+            clear()
+            apply()
+        }
+    }
 
     private fun clearSetting(key: String) {
         val settings = context.getSharedPreferences(SETTINGS_NAME, Activity.MODE_PRIVATE)
@@ -39,7 +49,7 @@ class AppSettingsImpl(context: Context) : AppSettings {
 
     override fun isUserLogged(): Boolean = loadFromSettings(SETTINGS_TOKEN) != null
 
-    override fun logOut() = clearSetting(SETTINGS_TOKEN)
+    override fun logOut() = clearAll()
 
     override var apiToken: String?
         get() = loadFromSettings(SETTINGS_TOKEN)

@@ -12,6 +12,7 @@ import com.rstit.connector.ConnectorApplication
 import com.rstit.connector.R
 import com.rstit.connector.databinding.ActivityMainBinding
 import com.rstit.connector.di.main.MainModule
+import com.rstit.connector.settings.AppSettings
 import com.rstit.connector.ui.auth.AuthActivity
 import com.rstit.connector.ui.base.BaseActivity
 import com.rstit.connector.ui.base.MultiViewAdapter
@@ -29,6 +30,9 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), MainViewAccess {
     @Inject
     lateinit var model: MainViewModel
+
+    @Inject
+    lateinit var appSettings: AppSettings
 
     lateinit var binding: ActivityMainBinding
 
@@ -53,6 +57,7 @@ class MainActivity : BaseActivity(), MainViewAccess {
     private fun navigateToChangePassword() = startActivity(Intent(this, ResetPasswordActivity::class.java))
 
     private fun signOut() {
+        model.singOut()
         startActivity(Intent(this, AuthActivity::class.java))
         finish()
     }
@@ -80,6 +85,11 @@ class MainActivity : BaseActivity(), MainViewAccess {
                 .appComponent
                 .plus(MainModule(this))
                 .inject(this)
+
+        if (!appSettings.isUserLogged()) {
+            startActivity(Intent(this, AuthActivity::class.java))
+            finish()
+        }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.model = model

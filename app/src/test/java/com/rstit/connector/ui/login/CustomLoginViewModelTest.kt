@@ -39,7 +39,7 @@ class CustomLoginViewModelTest : BaseTest() {
     }
 
     @Test
-    fun handleErrorResponse() {
+    fun handleErrorResponse_Default() {
         model.handleErrorResponse(IOException())
         Mockito.verify(model.viewAccess).displayError()
     }

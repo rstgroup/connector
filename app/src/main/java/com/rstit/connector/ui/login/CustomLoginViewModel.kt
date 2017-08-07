@@ -1,6 +1,7 @@
 package com.rstit.connector.ui.login
 
 import android.databinding.ObservableBoolean
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import com.rstit.binding.ObservableString
 import com.rstit.connector.di.base.scope.FragmentScope
 import com.rstit.connector.model.auth.SignInBody
@@ -10,6 +11,7 @@ import com.rstit.connector.settings.AppSettings
 import com.rstit.ui.auth.login.LoginViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 /**
@@ -49,19 +51,22 @@ class CustomLoginViewModel @Inject constructor() : LoginViewModel() {
     }
 
     fun handleErrorResponse(error: Throwable?) {
-        //todo handle error
-        viewAccess.displayError()
+        if (error is HttpException && error.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+            viewAccess.displayInvalidDataError()
+        } else {
+            viewAccess.displayError()
+        }
     }
 
     fun sendRequest() =
             registerDisposable(api.signIn(SignInBody(mLogin.get(), mPassword.get()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe({
+                    .doOnSubscribe {
                         error.set(null)
                         loading.set(true)
                         viewAccess.closeKeyboard()
-                    })
-                    .doOnTerminate({ loading.set(false) })
+                    }
+                    .doOnTerminate{ loading.set(false) }
                     .subscribe(this::handleSuccessResponse, this::handleErrorResponse))
 }

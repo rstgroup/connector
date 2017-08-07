@@ -8,7 +8,7 @@ import com.rstit.connector.ui.base.RowViewModel
  * @author Tomasz Trybala
  * @since 2017-07-21
  */
-class UserRowViewModel(user: User) : RowViewModel() {
+class UserRowViewModel(val user: User) : RowViewModel() {
     val name = ObservableString("${user.name} ${user.lastName}")
     val avatar = ObservableString(user.avatar)
 }

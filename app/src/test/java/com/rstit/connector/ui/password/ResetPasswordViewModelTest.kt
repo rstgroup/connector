@@ -9,6 +9,7 @@ import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
+import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -51,6 +52,12 @@ class ResetPasswordViewModelTest : BaseTest() {
         model.handleResponse(changePasswordResponse)
         Mockito.verify(model.appSettings).apiToken = changePasswordResponse.token
         Mockito.verify(model.viewAccess).displaySuccess()
+    }
+
+    @Test
+    fun handleErrorResponse_Default() {
+        model.handleErrorResponse(IOException())
+        Mockito.verify(model.viewAccess).displayDefaultError()
     }
 
     @Test
