@@ -2,7 +2,7 @@ ext {
     app = [
             buildTools: "26.0.0",
 //            apiUrl: '"https://rst-it.com/api/v1/"',
-            apiUrl: '"http://192.168.1.136:5000/v1/"',
+            apiUrl: '"https://private-dd938-connector4.apiary-mock.com/"',
             baseId: "com.rstit.connector"
     ]
 

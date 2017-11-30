@@ -60,6 +60,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:text="@string/main_label"
+                            android:textColor="@android:color/white"
                             android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
                     </LinearLayout>
                 </android.support.v7.widget.Toolbar>

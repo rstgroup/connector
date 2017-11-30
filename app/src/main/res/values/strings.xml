@@ -28,6 +28,7 @@
 
     <string name="sign_out_label">Sign out</string>
     <string name="change_password_label">Change password</string>
+    <string name="profile_label">My Profile</string>
 
     <string name="sign_out_message">Are you sure you want to sign out?</string>
     <string name="sign_out_yes">Yes</string>

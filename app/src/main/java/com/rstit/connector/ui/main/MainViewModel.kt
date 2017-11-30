@@ -66,12 +66,12 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
                     if (clear) viewAccess.clearScrollListener()
                 }
                 .doOnTerminate { loading.set(false) }
-                .doOnNext { it -> viewAccess.setScrollListenerEnabled(!it.isLastPage) }
-                .map { it -> it.entries ?: emptyList() }
-                .flatMap { it -> Observable.fromIterable(it) }
-                .map { it -> MainRowViewModel(it) }
+                .doOnNext { viewAccess.setScrollListenerEnabled(!it.isLastPage) }
+                .map { it.entries ?: emptyList() }
+                .flatMap { Observable.fromIterable(it) }
+                .map { MainRowViewModel(it) }
                 .toList()
-                .subscribe({ models -> handleModels(models, true) }, { handleError() }))
+                .subscribe({ handleModels(it, true) }, { handleError() }))
     }
 
     fun handleModels(list: Collection<RowViewModel>, clear: Boolean) {
@@ -86,8 +86,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun sendMessageToAll() {
-        registerDisposable(api.sendMessageToAll(
-                MessageToAllBody(messageToAll.get()))
+        registerDisposable(api.sendMessageToAll(MessageToAllBody(messageToAll.get()))
                 .delay(KEYBOARD_DELAY, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

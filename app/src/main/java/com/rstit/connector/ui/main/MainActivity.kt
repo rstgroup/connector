@@ -133,6 +133,10 @@ class MainActivity : BaseActivity(), MainViewAccess {
         return true
     }
 
+    override fun navigateToProfile() {
+        //TODO add profile view
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean =
             when (item?.itemId) {
                 R.id.action_sign_out -> {
@@ -141,6 +145,10 @@ class MainActivity : BaseActivity(), MainViewAccess {
                 }
                 R.id.action_change_password -> {
                     navigateToChangePassword()
+                    true
+                }
+                R.id.action_profile -> {
+                    navigateToProfile()
                     true
                 }
                 else -> super.onOptionsItemSelected(item)

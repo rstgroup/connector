@@ -16,7 +16,8 @@
         android:gravity="end"
         android:orientation="vertical"
         android:paddingEnd="@dimen/padding_default"
-        android:layout_marginStart="@dimen/padding_xxxlarge">
+        android:layout_marginStart="@dimen/padding_xxxlarge"
+        tools:ignore="RtlSymmetry">
 
         <LinearLayout
             android:layout_width="wrap_content"

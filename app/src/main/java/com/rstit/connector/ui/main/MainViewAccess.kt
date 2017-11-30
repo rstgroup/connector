@@ -24,4 +24,6 @@ interface MainViewAccess {
     fun clearScrollListener()
 
     fun setScrollListenerEnabled(enabled: Boolean)
+
+    fun navigateToProfile()
 }
