@@ -1,15 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.rstit.connector.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/app_name"
-        android:textColor="@android:color/black"/>
-</FrameLayout>
+    <data>
+
+        <import type="com.google.common.base.Strings"/>
+
+        <variable
+            name="viewAccess"
+            type="com.rstit.connector.ui.main.MainViewAccess"/>
+
+        <variable
+            name="model"
+            type="com.rstit.connector.ui.main.MainViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/mainCoordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimary"
+                    android:fitsSystemWindows="true"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:layout_width="@dimen/list_avatar_size"
+                            android:layout_height="?attr/actionBarSize"
+                            android:layout_marginEnd="@dimen/padding_large"
+                            android:contentDescription="@string/ct_icon_logo"
+                            android:paddingEnd="@dimen/padding_small"
+                            android:paddingStart="@dimen/padding_small"
+                            android:src="@drawable/ic_rst_24dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/main_label"
+                            android:textColor="@android:color/white"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+                    </LinearLayout>
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.AppBarLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_xlarge"
+                    app:visibleIf="@{model.isEmpty}"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_default"
+                        android:contentDescription="@string/ct_empty_inbox"
+                        android:src="@drawable/ic_inbox_black_48dp"
+                        android:tint="@android:color/darker_gray"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingEnd="@dimen/padding_default"
+                        android:paddingStart="@dimen/padding_default"
+                        android:text="@string/empty_inbox_text"
+                        android:textColor="@android:color/darker_gray"/>
+                </LinearLayout>
+
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/refreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:refreshing="@{model.loading}">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never"
+                        android:paddingBottom="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_default"
+                        app:adapter="@{viewAccess.adapter}"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+                </android.support.v4.widget.SwipeRefreshLayout>
+            </FrameLayout>
+
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:id="@+id/fabMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                app:layout_behavior="com.rstit.connector.util.MoveUpBehavior"
+                app:visibleIf="@{model.isChatAvailable}"
+                fab:fab_addButtonColorNormal="@color/colorAccent"
+                fab:fab_addButtonColorPressed="@color/colorAccentDark"
+                fab:fab_addButtonPlusIconColor="@android:color/white"
+                fab:fab_addButtonSize="normal"
+                fab:fab_labelStyle="@style/FabMenuLabel"
+                fab:fab_labelsPosition="left">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    style="@style/FabMenuStyle"
+                    android:onClick="@{() -> viewAccess.selectPerson()}"
+                    fab:fab_icon="@drawable/ic_chat_bubble_white_24dp"
+                    fab:fab_title="@string/fab_chat_one"/>
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    style="@style/FabMenuStyle"
+                    android:onClick="@{() -> viewAccess.writeToAll()}"
+                    fab:fab_icon="@drawable/ic_forum_white_24dp"
+                    fab:fab_title="@string/fab_chat_all"/>
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        </android.support.design.widget.CoordinatorLayout>
+
+        <LinearLayout
+            android:id="@+id/flMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:rightTransitionVisibility="@{model.isMessageVisible}">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimary"
+                    android:clipToPadding="true"
+                    app:elevation="@dimen/padding_default">
+
+                    <ImageView
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/padding_large"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/ct_icon_close"
+                        android:onClick="@{() -> model.hideMessage()}"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_close_white_24dp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/fab_chat_all"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                        android:textColor="@android:color/white"/>
+
+                    <ImageView
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/ct_icon_send"
+                        android:onClick="@{() -> model.sendMessageToAll()}"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_send_white_24dp"
+                        app:alpha="@{!Strings.isNullOrEmpty(model.messageToAll) ? 1f : 0.5f}"
+                        app:enabled="@{!Strings.isNullOrEmpty(model.messageToAll)}"/>
+                </LinearLayout>
+            </android.support.design.widget.AppBarLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundLight"
+                    android:gravity="start"
+                    android:hint="@string/message_to_all_hint"
+                    android:padding="@dimen/padding_large"
+                    android:text="@={model.messageToAll}"
+                    android:textSize="@dimen/font_large"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundProgress"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    app:visibleIf="@{model.isSendingMessage}">
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

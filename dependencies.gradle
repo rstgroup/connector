@@ -8,14 +8,19 @@ ext {
     fcmVersion = '11.0.2'
     glideVersion = '3.7.0'
     glideTransformationsVersion = '2.0.1'
-    rxJavaVersion = '1.1.1'
-    rxAndroidVersion = '1.1.0'
-    rxRetrofitAdapterVersion = '2.3.0'
-    crashlyticsVersion = '2.5.5@aar'
+    rxJavaVersion = '2.0.6'
+    rxAndroidVersion = '2.0.1'
+    rxRetrofitAdapterVersion = '1.0.0'
+    crashlyticsVersion = '2.6.8@aar'
     junitVersion = '4.12'
     dexmaker = '1.2'
     mockitoCore = '2.0.7-beta'
     requeryVersion = '1.1.2'
+    rstAndroidBaseVersion = '1.0.2'
+    daggerVersion = '2.11'
+    fabMenuVersion = '1.10.1'
+    paperParcelVersion = '2.0.1'
+    webSocketClientVersion = '2.3'
 
     support = [
             design:                     "com.android.support:design:${supportLibraryVersion}",
@@ -24,7 +29,8 @@ ext {
             appCompat:                  "com.android.support:appcompat-v7:${supportLibraryVersion}",
             appCompatV4:                "com.android.support:support-v4:${supportLibraryVersion}",
             appCompatV13:               "com.android.support:support-v13:${supportLibraryVersion}",
-            annotation:                 "com.android.support:support-annotations:${supportLibraryVersion}"
+            annotation:                 "com.android.support:support-annotations:${supportLibraryVersion}",
+            dataBinding:                "com.android.databinding:compiler:$android_plugin_version"
     ]
 
     squareup = [
@@ -52,9 +58,9 @@ ext {
     ]
 
     rx = [
-            java:                       "io.reactivex:rxjava:${rxJavaVersion}",
-            android:                    "io.reactivex:rxandroid:${rxAndroidVersion}",
-            retrofitAdapter:            "com.squareup.retrofit2:adapter-rxjava:${rxRetrofitAdapterVersion}"
+            java           :            "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            android        :            "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            retrofitAdapter:            "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${rxRetrofitAdapterVersion}"
     ]
 
     fabric = [
@@ -76,5 +82,30 @@ ext {
 
     kotlinBase = [
             sdk:                         "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlin_version}"
+    ]
+
+    rst = [
+            androidBase:                 "com.rst-it:android-base:${rstAndroidBaseVersion}"
+    ]
+
+    dagger = [
+            compiler:                    "com.google.dagger:dagger-compiler:${daggerVersion}",
+            processor:                   "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            di      :                    "com.google.dagger:dagger:${daggerVersion}",
+            diSupport :                  "com.google.dagger:dagger-android-support:${daggerVersion}",
+    ]
+
+    views = [
+            fabMenu:                     "com.getbase:floatingactionbutton:${fabMenuVersion}"
+    ]
+
+    webSocket = [
+            client:                      "com.neovisionaries:nv-websocket-client:${webSocketClientVersion}"
+    ]
+
+    paperParcel = [
+            library:                     "nz.bradcampbell:paperparcel:${paperParcelVersion}",
+            kotlin:                      "nz.bradcampbell:paperparcel-kotlin:${paperParcelVersion}",
+            compiler:                    "nz.bradcampbell:paperparcel-compiler:${paperParcelVersion}"
     ]
 }

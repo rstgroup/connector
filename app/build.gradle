@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion sdk.compile
@@ -10,28 +12,35 @@ android {
         enabled = true
     }
 
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-
     defaultConfig {
         applicationId "${app.baseId}"
         minSdkVersion sdk.min
         targetSdkVersion sdk.target
-        versionCode 100
-        versionName "1.0.0"
+        versionCode 1
+        versionName "0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
 
     buildTypes {
-        debug{
+        debug {
+            buildConfigField "String", 'API_URL', app.apiUrl
         }
 
         release {
+            buildConfigField "String", 'API_URL', app.apiUrl
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 
@@ -46,6 +55,8 @@ dependencies {
     implementation support.recyclerView
     implementation support.cardView
 
+    implementation views.fabMenu
+
     implementation squareup.retrofit
     implementation squareup.retrofitGson
     implementation squareup.loggingInterceptor
@@ -55,6 +66,8 @@ dependencies {
 
     implementation joda.time
 
+    implementation rst.androidBase
+
     implementation google.guava
     implementation google.fcmCore
     implementation google.fcmMessaging
@@ -63,19 +76,34 @@ dependencies {
     implementation rx.android
     implementation rx.retrofitAdapter
 
-    implementation database.requery
-    implementation database.requeryAndroid
-    annotationProcessor database.requeryProcessor
+    implementation dagger.di
+    implementation dagger.diSupport
+    kapt dagger.compiler
+    kapt dagger.processor
+
+    kapt support.dataBinding
+
+    implementation paperParcel.library
+    implementation paperParcel.kotlin
+    kapt paperParcel.compiler
+
+    implementation webSocket.client
 
     debugImplementation squareup.leakCanaryDebug
     releaseImplementation squareup.leakCanaryRelease
 
+    kaptTest dagger.compiler
+
+    testImplementation rx.java
+    testImplementation rx.android
     testImplementation squareup.leakCanaryTest
     testImplementation test.junit
+    testImplementation test.mockitoCore
+    testImplementation dagger.di
 
-    androidTestImplementation test.dexmakerMockito
-    androidTestImplementation test.dexmaker
-    androidTestImplementation test.mockitoCore
+    compile(fabric.crashlytics) {
+        transitive = true
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'

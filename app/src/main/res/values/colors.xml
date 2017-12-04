@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#f15921</color>
+    <color name="colorPrimaryDark">#d8501d</color>
+    <color name="colorAccent">#7b1fa2</color>
+    <color name="colorAccentDark">#6b1b8d</color>
+
+    <color name="colorPrimarySemiTransparent">#88f15921</color>
+    <color name="menuLabel">#88000000</color>
+    <color name="backgroundLight">#fafafa</color>
+    <color name="backgroundProgress">#33000000</color>
+    <color name="colorHint">#88ffffff</color>
+
+    <color name="chatMyMessageBg">#96f15921</color>
+    <color name="chatBg">#f1f1f1</color>
 </resources>

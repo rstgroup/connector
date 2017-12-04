@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.rstit.connector.ui.chat.ChatMyMessageRowViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/padding_default"
+        android:layout_marginStart="@dimen/padding_xxxlarge"
+        tools:ignore="RtlSymmetry">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/ct_icon_check_all"
+                android:src="@drawable/ic_check_all"
+                app:chatStatus="@{model.status}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_message_my"
+                android:gravity="center"
+                android:minHeight="@dimen/chat_avatar_size"
+                android:text="@{model.content}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/font_large"
+                tools:text="Text message"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_default"
+            android:text="@{model.time}"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/font_xsmall"
+            android:visibility="gone"
+            app:animateLabel="@{model.timeVisible}"
+            tools:text="Today, 16:23"
+            tools:visibility="visible"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.rstit.connector.ui.chat.ChatOtherMessageRowViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_xxxlarge"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/padding_default"
+        tools:ignore="RtlSymmetry,UseCompoundDrawables">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_message_other"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/chat_avatar_size"
+            android:text="@{model.content}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/font_large"
+            tools:text="Three line imtemaskjdbasln askd ;alk a;slkmd;alsmd;alms;dlmasldma.smd.aksnd.kansd.kna.kns.dkna.sd"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_default"
+            android:text="@{model.time}"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/font_xsmall"
+            android:visibility="gone"
+            app:animateLabel="@{model.timeVisible}"
+            tools:text="16:23"/>
+    </LinearLayout>
+</layout>
